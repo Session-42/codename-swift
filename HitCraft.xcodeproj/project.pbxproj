@@ -1,0 +1,444 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7A3F5DDD2D2D68AB005C1907 /* hitcraft.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DDC2D2D68AB005C1907 /* hitcraft.png */; };
+		7A3F5DE02D2D68FE005C1907 /* preset.svg in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DDF2D2D68FE005C1907 /* preset.svg */; };
+		7A3F5DE12D2D68FE005C1907 /* hiti.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DDE2D2D68FE005C1907 /* hiti.png */; };
+		7A3F5DF62D2D6940005C1907 /* Poppins-Regular.woff2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DF12D2D6940005C1907 /* Poppins-Regular.woff2.ttf */; };
+		7A3F5DF72D2D6940005C1907 /* Poppins-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DE52D2D6940005C1907 /* Poppins-BlackItalic.ttf */; };
+		7A3F5DF82D2D6940005C1907 /* Poppins-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DEB2D2D6940005C1907 /* Poppins-ExtraLightItalic.ttf */; };
+		7A3F5DF92D2D6940005C1907 /* Poppins-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DEE2D2D6940005C1907 /* Poppins-LightItalic.ttf */; };
+		7A3F5DFA2D2D6940005C1907 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DE62D2D6940005C1907 /* Poppins-Bold.ttf */; };
+		7A3F5DFB2D2D6940005C1907 /* Poppins-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DF42D2D6940005C1907 /* Poppins-Thin.ttf */; };
+		7A3F5DFC2D2D6940005C1907 /* Poppins-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DE42D2D6940005C1907 /* Poppins-Black.ttf */; };
+		7A3F5DFD2D2D6940005C1907 /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DEA2D2D6940005C1907 /* Poppins-ExtraLight.ttf */; };
+		7A3F5DFE2D2D6940005C1907 /* Poppins-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DE72D2D6940005C1907 /* Poppins-BoldItalic.ttf */; };
+		7A3F5DFF2D2D6940005C1907 /* Poppins-Medium.woff2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DEF2D2D6940005C1907 /* Poppins-Medium.woff2.ttf */; };
+		7A3F5E002D2D6940005C1907 /* Poppins-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DE92D2D6940005C1907 /* Poppins-ExtraBoldItalic.ttf */; };
+		7A3F5E012D2D6940005C1907 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DE32D2D6940005C1907 /* OFL.txt */; };
+		7A3F5E022D2D6940005C1907 /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DF02D2D6940005C1907 /* Poppins-MediumItalic.ttf */; };
+		7A3F5E032D2D6940005C1907 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DF22D2D6940005C1907 /* Poppins-SemiBold.ttf */; };
+		7A3F5E042D2D6940005C1907 /* Poppins-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DF32D2D6940005C1907 /* Poppins-SemiBoldItalic.ttf */; };
+		7A3F5E052D2D6940005C1907 /* Poppins-Light.woff2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DED2D2D6940005C1907 /* Poppins-Light.woff2.ttf */; };
+		7A3F5E062D2D6940005C1907 /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DEC2D2D6940005C1907 /* Poppins-Italic.ttf */; };
+		7A3F5E072D2D6940005C1907 /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DE82D2D6940005C1907 /* Poppins-ExtraBold.ttf */; };
+		7A3F5E082D2D6940005C1907 /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DF52D2D6940005C1907 /* Poppins-ThinItalic.ttf */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		7A3F5DB92D2D62FB005C1907 /* HitCraft.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HitCraft.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A3F5DDC2D2D68AB005C1907 /* hitcraft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hitcraft.png; sourceTree = "<group>"; };
+		7A3F5DDE2D2D68FE005C1907 /* hiti.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hiti.png; sourceTree = "<group>"; };
+		7A3F5DDF2D2D68FE005C1907 /* preset.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = preset.svg; sourceTree = "<group>"; };
+		7A3F5DE32D2D6940005C1907 /* OFL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
+		7A3F5DE42D2D6940005C1907 /* Poppins-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Black.ttf"; sourceTree = "<group>"; };
+		7A3F5DE52D2D6940005C1907 /* Poppins-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-BlackItalic.ttf"; sourceTree = "<group>"; };
+		7A3F5DE62D2D6940005C1907 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
+		7A3F5DE72D2D6940005C1907 /* Poppins-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-BoldItalic.ttf"; sourceTree = "<group>"; };
+		7A3F5DE82D2D6940005C1907 /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
+		7A3F5DE92D2D6940005C1907 /* Poppins-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		7A3F5DEA2D2D6940005C1907 /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
+		7A3F5DEB2D2D6940005C1907 /* Poppins-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		7A3F5DEC2D2D6940005C1907 /* Poppins-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Italic.ttf"; sourceTree = "<group>"; };
+		7A3F5DED2D2D6940005C1907 /* Poppins-Light.woff2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.woff2.ttf"; sourceTree = "<group>"; };
+		7A3F5DEE2D2D6940005C1907 /* Poppins-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-LightItalic.ttf"; sourceTree = "<group>"; };
+		7A3F5DEF2D2D6940005C1907 /* Poppins-Medium.woff2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.woff2.ttf"; sourceTree = "<group>"; };
+		7A3F5DF02D2D6940005C1907 /* Poppins-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-MediumItalic.ttf"; sourceTree = "<group>"; };
+		7A3F5DF12D2D6940005C1907 /* Poppins-Regular.woff2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.woff2.ttf"; sourceTree = "<group>"; };
+		7A3F5DF22D2D6940005C1907 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		7A3F5DF32D2D6940005C1907 /* Poppins-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		7A3F5DF42D2D6940005C1907 /* Poppins-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Thin.ttf"; sourceTree = "<group>"; };
+		7A3F5DF52D2D6940005C1907 /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
+		7A3F5E0F2D2D731D005C1907 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		7A3F5DBB2D2D62FB005C1907 /* HitCraft */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = HitCraft;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7A3F5DB62D2D62FB005C1907 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7A3F5DB02D2D62FB005C1907 = {
+			isa = PBXGroup;
+			children = (
+				7A3F5E0F2D2D731D005C1907 /* Info.plist */,
+				7A3F5DDA2D2D6852005C1907 /* Resources */,
+				7A3F5DBA2D2D62FB005C1907 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7A3F5DBA2D2D62FB005C1907 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7A3F5DB92D2D62FB005C1907 /* HitCraft.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7A3F5DDA2D2D6852005C1907 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7A3F5DE22D2D6927005C1907 /* Fonts */,
+				7A3F5DDB2D2D685F005C1907 /* Assets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		7A3F5DDB2D2D685F005C1907 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				7A3F5DBB2D2D62FB005C1907 /* HitCraft */,
+				7A3F5DDC2D2D68AB005C1907 /* hitcraft.png */,
+				7A3F5DDE2D2D68FE005C1907 /* hiti.png */,
+				7A3F5DDF2D2D68FE005C1907 /* preset.svg */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		7A3F5DE22D2D6927005C1907 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				7A3F5DE32D2D6940005C1907 /* OFL.txt */,
+				7A3F5DE42D2D6940005C1907 /* Poppins-Black.ttf */,
+				7A3F5DE52D2D6940005C1907 /* Poppins-BlackItalic.ttf */,
+				7A3F5DE62D2D6940005C1907 /* Poppins-Bold.ttf */,
+				7A3F5DE72D2D6940005C1907 /* Poppins-BoldItalic.ttf */,
+				7A3F5DE82D2D6940005C1907 /* Poppins-ExtraBold.ttf */,
+				7A3F5DE92D2D6940005C1907 /* Poppins-ExtraBoldItalic.ttf */,
+				7A3F5DEA2D2D6940005C1907 /* Poppins-ExtraLight.ttf */,
+				7A3F5DEB2D2D6940005C1907 /* Poppins-ExtraLightItalic.ttf */,
+				7A3F5DEC2D2D6940005C1907 /* Poppins-Italic.ttf */,
+				7A3F5DED2D2D6940005C1907 /* Poppins-Light.woff2.ttf */,
+				7A3F5DEE2D2D6940005C1907 /* Poppins-LightItalic.ttf */,
+				7A3F5DEF2D2D6940005C1907 /* Poppins-Medium.woff2.ttf */,
+				7A3F5DF02D2D6940005C1907 /* Poppins-MediumItalic.ttf */,
+				7A3F5DF12D2D6940005C1907 /* Poppins-Regular.woff2.ttf */,
+				7A3F5DF22D2D6940005C1907 /* Poppins-SemiBold.ttf */,
+				7A3F5DF32D2D6940005C1907 /* Poppins-SemiBoldItalic.ttf */,
+				7A3F5DF42D2D6940005C1907 /* Poppins-Thin.ttf */,
+				7A3F5DF52D2D6940005C1907 /* Poppins-ThinItalic.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7A3F5DB82D2D62FB005C1907 /* HitCraft */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A3F5DC72D2D6300005C1907 /* Build configuration list for PBXNativeTarget "HitCraft" */;
+			buildPhases = (
+				7A3F5DB52D2D62FB005C1907 /* Sources */,
+				7A3F5DB62D2D62FB005C1907 /* Frameworks */,
+				7A3F5DB72D2D62FB005C1907 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				7A3F5DBB2D2D62FB005C1907 /* HitCraft */,
+			);
+			name = HitCraft;
+			packageProductDependencies = (
+			);
+			productName = HitCraft;
+			productReference = 7A3F5DB92D2D62FB005C1907 /* HitCraft.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7A3F5DB12D2D62FB005C1907 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					7A3F5DB82D2D62FB005C1907 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+				};
+			};
+			buildConfigurationList = 7A3F5DB42D2D62FB005C1907 /* Build configuration list for PBXProject "HitCraft" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7A3F5DB02D2D62FB005C1907;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 7A3F5DBA2D2D62FB005C1907 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7A3F5DB82D2D62FB005C1907 /* HitCraft */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7A3F5DB72D2D62FB005C1907 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A3F5DE02D2D68FE005C1907 /* preset.svg in Resources */,
+				7A3F5DE12D2D68FE005C1907 /* hiti.png in Resources */,
+				7A3F5DDD2D2D68AB005C1907 /* hitcraft.png in Resources */,
+				7A3F5DF62D2D6940005C1907 /* Poppins-Regular.woff2.ttf in Resources */,
+				7A3F5DF72D2D6940005C1907 /* Poppins-BlackItalic.ttf in Resources */,
+				7A3F5DF82D2D6940005C1907 /* Poppins-ExtraLightItalic.ttf in Resources */,
+				7A3F5DF92D2D6940005C1907 /* Poppins-LightItalic.ttf in Resources */,
+				7A3F5DFA2D2D6940005C1907 /* Poppins-Bold.ttf in Resources */,
+				7A3F5DFB2D2D6940005C1907 /* Poppins-Thin.ttf in Resources */,
+				7A3F5DFC2D2D6940005C1907 /* Poppins-Black.ttf in Resources */,
+				7A3F5DFD2D2D6940005C1907 /* Poppins-ExtraLight.ttf in Resources */,
+				7A3F5DFE2D2D6940005C1907 /* Poppins-BoldItalic.ttf in Resources */,
+				7A3F5DFF2D2D6940005C1907 /* Poppins-Medium.woff2.ttf in Resources */,
+				7A3F5E002D2D6940005C1907 /* Poppins-ExtraBoldItalic.ttf in Resources */,
+				7A3F5E012D2D6940005C1907 /* OFL.txt in Resources */,
+				7A3F5E022D2D6940005C1907 /* Poppins-MediumItalic.ttf in Resources */,
+				7A3F5E032D2D6940005C1907 /* Poppins-SemiBold.ttf in Resources */,
+				7A3F5E042D2D6940005C1907 /* Poppins-SemiBoldItalic.ttf in Resources */,
+				7A3F5E052D2D6940005C1907 /* Poppins-Light.woff2.ttf in Resources */,
+				7A3F5E062D2D6940005C1907 /* Poppins-Italic.ttf in Resources */,
+				7A3F5E072D2D6940005C1907 /* Poppins-ExtraBold.ttf in Resources */,
+				7A3F5E082D2D6940005C1907 /* Poppins-ThinItalic.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7A3F5DB52D2D62FB005C1907 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		7A3F5DC52D2D6300005C1907 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		7A3F5DC62D2D6300005C1907 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7A3F5DC82D2D6300005C1907 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.session-42.HitCraft";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7A3F5DC92D2D6300005C1907 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.session-42.HitCraft";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7A3F5DB42D2D62FB005C1907 /* Build configuration list for PBXProject "HitCraft" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A3F5DC52D2D6300005C1907 /* Debug */,
+				7A3F5DC62D2D6300005C1907 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A3F5DC72D2D6300005C1907 /* Build configuration list for PBXNativeTarget "HitCraft" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A3F5DC82D2D6300005C1907 /* Debug */,
+				7A3F5DC92D2D6300005C1907 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7A3F5DB12D2D62FB005C1907 /* Project object */;
+}
