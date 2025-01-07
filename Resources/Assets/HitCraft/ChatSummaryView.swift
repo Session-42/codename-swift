@@ -2,82 +2,101 @@ import SwiftUI
 
 struct ChatSummaryView: View {
     @Binding var isOpen: Bool
+    @State private var searchText = ""
     
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                Color.white
-                
-                VStack(alignment: .leading, spacing: 0) {
-                    // Header
-                    HStack(spacing: 8) {
-                        Image("preset")
-                            .resizable()
-                            .frame(width: 32, height: 32)
-                        Text("SESSIONS")
-                            .font(HitCraftFonts.poppins(16))
-                        + Text(" SUMMARY")
-                            .font(HitCraftFonts.poppins(16, weight: .bold))
+        VStack(spacing: 0) {
+            // Header with close button
+            HStack {
+                Image(systemName: "bubble.left.fill")
+                    .foregroundColor(HitCraftColors.accent)
+                    .font(.system(size: 24))
+                Text("SESSIONS SUMMARY")
+                    .font(.system(size: 20, weight: .bold))
+                Spacer()
+                Button(action: {
+                    withAnimation(.spring()) {
+                        isOpen = false
                     }
-                    .padding(.top, 37)
-                    .padding(.bottom, 41)
-                    .padding(.horizontal, 22)
-                    
-                    Divider()
-                        .background(HitCraftColors.border.opacity(0.13))
-                    
-                    // Search
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(HitCraftColors.secondaryText)
-                        TextField("Search chats...", text: .constant(""))
-                            .font(HitCraftFonts.poppins(14, weight: .light))
-                    }
-                    .padding(.horizontal, 18)
-                    .padding(.vertical, 13)
-                    .background(HitCraftColors.background)
-                    .clipShape(Capsule())
-                    .padding(.horizontal, 18)
-                    .padding(.top, 32)
-                    
-                    // Chat List
-                    ScrollView {
-                        VStack(spacing: 15) {
-                            ForEach(1...5, id: \.self) { _ in
-                                ChatSummaryCard()
-                            }
-                        }
-                        .padding(.horizontal, 18)
-                        .padding(.top, 30)
-                    }
+                }) {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 20))
+                        .foregroundColor(.black)
                 }
             }
-            .frame(width: min(geometry.size.width * 0.8, 320))
-            .edgesIgnoringSafeArea(.vertical)
+            .padding(.horizontal, 20)
+            .padding(.top, 60)
+            .padding(.bottom, 20)
+            
+            Divider()
+            
+            ScrollView {
+                VStack(spacing: 16) {
+                    // Search Bar
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(.gray)
+                        TextField("Search chats...", text: $searchText)
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 12)
+                    .background(Color(hex: "F4F4F5"))
+                    .cornerRadius(25)
+                    .padding(.horizontal, 20)
+                    .padding(.top, 20)
+                    
+                    // Chat List
+                    VStack(spacing: 12) {
+                        ForEach(sampleChats) { chat in
+                            ChatSummaryCard(chat: chat)
+                        }
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.top, 10)
+                }
+            }
         }
+        .background(Color.white)
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
 struct ChatSummaryCard: View {
+    let chat: ChatSummary
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 15) {
-            HStack {
-                Image("preset")
-                    .resizable()
-                    .frame(width: 32, height: 32)
-                    .opacity(0.3)
-                Text("Need help with my 2nd verse lyrics")
-                    .font(HitCraftFonts.poppins(13, weight: .light))
-                    .lineLimit(2)
-            }
+        HStack(alignment: .center, spacing: 12) {
+            Image(systemName: "bubble.left.fill")
+                .foregroundColor(HitCraftColors.accent.opacity(0.3))
+                .font(.system(size: 20))
+            
+            Text(chat.title)
+                .font(.system(size: 16))
+                .lineLimit(2)
+            
+            Spacer()
         }
-        .padding(17)
-        .frame(height: 66)
+        .padding(.vertical, 16)
+        .padding(.horizontal, 16)
+        .frame(maxWidth: .infinity)
         .background(Color.white)
-        .clipShape(RoundedRectangle(cornerRadius: 14))
+        .cornerRadius(16)
         .overlay(
-            RoundedRectangle(cornerRadius: 14)
-                .stroke(HitCraftColors.border, lineWidth: 1)
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color(hex: "D9D9DF"), lineWidth: 1)
         )
     }
+}
+
+let sampleChats = [
+    ChatSummary(title: "Need help with my 2nd verse lyrics"),
+    ChatSummary(title: "Catchy drop ideas"),
+    ChatSummary(title: "Pop ballad production"),
+    ChatSummary(title: "Sound design exploration"),
+    ChatSummary(title: "Mixing advice needed")
+]
+
+struct ChatSummary: Identifiable {
+    let id = UUID()
+    let title: String
 }
