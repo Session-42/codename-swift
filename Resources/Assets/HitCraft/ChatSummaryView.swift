@@ -5,98 +5,80 @@ struct ChatSummaryView: View {
     @State private var searchText = ""
     
     var body: some View {
-        VStack(spacing: 0) {
-            // Header with close button
-            HStack {
-                Image(systemName: "bubble.left.fill")
-                    .foregroundColor(HitCraftColors.accent)
-                    .font(.system(size: 24))
-                Text("SESSIONS SUMMARY")
-                    .font(.system(size: 20, weight: .bold))
-                Spacer()
-                Button(action: {
-                    withAnimation(.spring()) {
-                        isOpen = false
+        GeometryReader { geometry in
+            ZStack {
+                Color.white.edgesIgnoringSafeArea(.all)
+                
+                VStack(alignment: .leading, spacing: 0) {
+                    // Title
+                    HStack(spacing: 8) {
+                        Text("SESSIONS SUMMARY")
+                            .font(HitCraftFonts.poppins(16, weight: .bold))
+                            .foregroundColor(.black)
                     }
-                }) {
-                    Image(systemName: "xmark")
-                        .font(.system(size: 20))
-                        .foregroundColor(.black)
-                }
-            }
-            .padding(.horizontal, 20)
-            .padding(.top, 60)
-            .padding(.bottom, 20)
-            
-            Divider()
-            
-            ScrollView {
-                VStack(spacing: 16) {
-                    // Search Bar
+                    .padding(.top, 37)
+                    .padding(.bottom, 41)
+                    .padding(.horizontal, 22)
+                    
+                    Divider()
+                        .background(HitCraftColors.border.opacity(0.13))
+                    
+                    // Search
                     HStack {
                         Image(systemName: "magnifyingglass")
-                            .foregroundColor(.gray)
+                            .foregroundColor(HitCraftColors.secondaryText)
                         TextField("Search chats...", text: $searchText)
+                            .font(HitCraftFonts.poppins(14, weight: .light))
                     }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 12)
-                    .background(Color(hex: "F4F4F5"))
-                    .cornerRadius(25)
-                    .padding(.horizontal, 20)
-                    .padding(.top, 20)
+                    .padding(.horizontal, 18)
+                    .padding(.vertical, 13)
+                    .background(HitCraftColors.background)
+                    .clipShape(Capsule())
+                    .padding(.horizontal, 18)
+                    .padding(.top, 32)
                     
                     // Chat List
-                    VStack(spacing: 12) {
-                        ForEach(sampleChats) { chat in
-                            ChatSummaryCard(chat: chat)
+                    ScrollView {
+                        VStack(spacing: 15) {
+                            ChatItem(title: "Need help with my 2nd verse lyrics")
+                            ChatItem(title: "Catchy drop ideas")
+                            ChatItem(title: "Pop ballad production")
+                            ChatItem(title: "Sound design exploration")
+                            ChatItem(title: "Mixing advice needed")
                         }
+                        .padding(.horizontal, 18)
+                        .padding(.top, 30)
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.top, 10)
                 }
             }
+            .frame(maxWidth: .infinity)
         }
-        .background(Color.white)
-        .edgesIgnoringSafeArea(.all)
     }
 }
 
-struct ChatSummaryCard: View {
-    let chat: ChatSummary
+struct ChatItem: View {
+    let title: String
     
     var body: some View {
-        HStack(alignment: .center, spacing: 12) {
-            Image(systemName: "bubble.left.fill")
-                .foregroundColor(HitCraftColors.accent.opacity(0.3))
-                .font(.system(size: 20))
-            
-            Text(chat.title)
-                .font(.system(size: 16))
-                .lineLimit(2)
-            
-            Spacer()
+        Button(action: {}) {
+            VStack(alignment: .leading, spacing: 15) {
+                Text(title)
+                    .font(HitCraftFonts.poppins(15, weight: .light))
+                    .foregroundColor(.black)
+                    .multilineTextAlignment(.leading)
+            }
+            .padding(17)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color.white)
+            .clipShape(RoundedRectangle(cornerRadius: 14))
+            .overlay(
+                RoundedRectangle(cornerRadius: 14)
+                    .stroke(HitCraftColors.border, lineWidth: 1)
+            )
         }
-        .padding(.vertical, 16)
-        .padding(.horizontal, 16)
-        .frame(maxWidth: .infinity)
-        .background(Color.white)
-        .cornerRadius(16)
-        .overlay(
-            RoundedRectangle(cornerRadius: 16)
-                .stroke(Color(hex: "D9D9DF"), lineWidth: 1)
-        )
     }
 }
 
-let sampleChats = [
-    ChatSummary(title: "Need help with my 2nd verse lyrics"),
-    ChatSummary(title: "Catchy drop ideas"),
-    ChatSummary(title: "Pop ballad production"),
-    ChatSummary(title: "Sound design exploration"),
-    ChatSummary(title: "Mixing advice needed")
-]
-
-struct ChatSummary: Identifiable {
-    let id = UUID()
-    let title: String
+#Preview {
+    ChatSummaryView(isOpen: .constant(true))
 }

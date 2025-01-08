@@ -29,6 +29,10 @@
 		7A3F5E062D2D6940005C1907 /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DEC2D2D6940005C1907 /* Poppins-Italic.ttf */; };
 		7A3F5E072D2D6940005C1907 /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DE82D2D6940005C1907 /* Poppins-ExtraBold.ttf */; };
 		7A3F5E082D2D6940005C1907 /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DF52D2D6940005C1907 /* Poppins-ThinItalic.ttf */; };
+		7AB5F63D2D2EA02800DDF158 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AB5F63C2D2EA02800DDF158 /* Assets.xcassets */; };
+		7AB5F63F2D2EA24000DDF158 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB5F63E2D2EA24000DDF158 /* AvatarView.swift */; };
+		7AB5F6412D2EA25A00DDF158 /* ActionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB5F6402D2EA25A00DDF158 /* ActionCard.swift */; };
+		7AB5F6432D2EA27100DDF158 /* ChatInputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB5F6422D2EA27100DDF158 /* ChatInputBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +60,10 @@
 		7A3F5DF42D2D6940005C1907 /* Poppins-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Thin.ttf"; sourceTree = "<group>"; };
 		7A3F5DF52D2D6940005C1907 /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
 		7A3F5E0F2D2D731D005C1907 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7AB5F63C2D2EA02800DDF158 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7AB5F63E2D2EA24000DDF158 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
+		7AB5F6402D2EA25A00DDF158 /* ActionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionCard.swift; sourceTree = "<group>"; };
+		7AB5F6422D2EA27100DDF158 /* ChatInputBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -80,6 +88,10 @@
 		7A3F5DB02D2D62FB005C1907 = {
 			isa = PBXGroup;
 			children = (
+				7AB5F6422D2EA27100DDF158 /* ChatInputBar.swift */,
+				7AB5F6402D2EA25A00DDF158 /* ActionCard.swift */,
+				7AB5F63E2D2EA24000DDF158 /* AvatarView.swift */,
+				7AB5F63C2D2EA02800DDF158 /* Assets.xcassets */,
 				7A3F5E0F2D2D731D005C1907 /* Info.plist */,
 				7A3F5DDA2D2D6852005C1907 /* Resources */,
 				7A3F5DBA2D2D62FB005C1907 /* Products */,
@@ -225,6 +237,7 @@
 				7A3F5E052D2D6940005C1907 /* Poppins-Light.woff2.ttf in Resources */,
 				7A3F5E062D2D6940005C1907 /* Poppins-Italic.ttf in Resources */,
 				7A3F5E072D2D6940005C1907 /* Poppins-ExtraBold.ttf in Resources */,
+				7AB5F63D2D2EA02800DDF158 /* Assets.xcassets in Resources */,
 				7A3F5E082D2D6940005C1907 /* Poppins-ThinItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,6 +249,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AB5F63F2D2EA24000DDF158 /* AvatarView.swift in Sources */,
+				7AB5F6432D2EA27100DDF158 /* ChatInputBar.swift in Sources */,
+				7AB5F6412D2EA25A00DDF158 /* ActionCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,151 +1,162 @@
 import SwiftUI
 
 struct ChatMainView: View {
+    @Binding var showingChat: Bool
+    @State private var messageText = ""
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                // Profile Image
-                AvatarView(imageName: "Hiti", size: 64, showStatus: true)
-                    .padding(.top, 70)
+                // Circle with status
+                Circle()
+                    .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+                    .frame(width: 60, height: 60)
+                    .overlay(
+                        Circle()
+                            .fill(Color.green)
+                            .frame(width: 8, height: 8)
+                            .offset(x: 22, y: 22)
+                    )
+                    .padding(.top, 40)
                 
-                // Artist Info
-                VStack(spacing: 4) {
+                // Title
+                HStack(spacing: 4) {
                     Text("Hiti")
-                        .font(HitCraftFonts.poppins(14, weight: .semibold))
                         .foregroundColor(HitCraftColors.accent)
-                    + Text(" | ")
+                    Text("|")
                         .foregroundColor(HitCraftColors.accent)
-                    + Text("HitCraft's AI bot")
-                        .font(HitCraftFonts.poppins(14, weight: .light))
-                        .foregroundColor(HitCraftColors.text)
+                    Text("HitCraft's AI bot")
+                        .foregroundColor(.black)
                 }
+                .font(HitCraftFonts.poppins(14, weight: .light))
                 
                 // Welcome Text
-                HStack(spacing: 4) {
-                    Text("GOOD AFTERNOON,")
-                        .font(HitCraftFonts.poppins(30, weight: .light))
-                    Text("SANDMAN")
-                        .font(HitCraftFonts.poppins(30, weight: .bold))
-                }
-                .foregroundColor(HitCraftColors.text)
-                .padding(.top, 20)
+                Text("GOOD AFTERNOON,")
+                    .font(HitCraftFonts.poppins(32, weight: .light))
+                Text("SANDMAN")
+                    .font(HitCraftFonts.poppins(32, weight: .bold))
                 
-                // Chat Input
-                ChatInputField(
-                    text: .constant(""),
-                    placeholder: "How can I help you make some music today?"
-                ) {
-                    // Send message action
+                // Chat Input with embedded send button
+                HStack {
+                    ZStack {
+                        HStack {
+                            TextField("How can I help you make some music today?", text: $messageText)
+                                .padding(.leading, 16)
+                                .padding(.trailing, 50)
+                                .padding(.vertical, 12)
+                        }
+                        
+                        HStack {
+                            Spacer()
+                            Button(action: {}) {
+                                Circle()
+                                    .fill(HitCraftColors.primaryGradient)
+                                    .frame(width: 37, height: 37)
+                                    .overlay(
+                                        Image(systemName: "arrow.up")
+                                            .foregroundColor(.white)
+                                            .rotationEffect(.degrees(45))
+                                    )
+                            }
+                            .padding(.trailing, 6)
+                        }
+                    }
+                    .background(Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 25))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 25)
+                            .stroke(HitCraftColors.border, lineWidth: 1)
+                    )
                 }
                 .padding(.horizontal, 20)
-                .padding(.top, 27)
                 
-                // Action Cards Grid
-                LazyVGrid(columns: [
-                    GridItem(.flexible()),
-                    GridItem(.flexible()),
-                    GridItem(.flexible())
-                ], spacing: 22) {
-                    ActionCard(
-                        title: "Browse Music",
-                        subtitle: "& Produce"
-                    ) { }
-                    ActionCard(
-                        title: "Let's collaborate & make",
-                        subtitle: "your next song together"
-                    ) { }
-                    ActionCard(
-                        title: "Get guidance, help and",
-                        subtitle: "sounds for your project"
-                    ) { }
+                // Action Cards
+                VStack(spacing: 12) {
+                    Button {
+                        print("Browse Music tapped")
+                    } label: {
+                        ActionCard(title: "Browse Music", subtitle: "& Produce") {}
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    Button {
+                        print("Collaborating...")
+                        showingChat = true
+                    } label: {
+                        ActionCard(title: "Let's collaborate & make", subtitle: "your next song together") {}
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    Button {
+                        print("Get guidance tapped")
+                    } label: {
+                        ActionCard(title: "Get guidance, help and", subtitle: "sounds for your project") {}
+                    }
+                    .buttonStyle(PlainButtonStyle())
                 }
                 .padding(.horizontal, 20)
-                .padding(.top, 27)
                 
-                // Recent Chats Section
-                VStack(alignment: .leading, spacing: 10) {
+                // Recent Chats
+                VStack(alignment: .leading) {
                     HStack {
-                        Image("preset")
-                            .resizable()
-                            .frame(width: 32, height: 32)
                         Text("Your recent chats")
-                            .font(HitCraftFonts.poppins(14, weight: .light))
+                            .font(HitCraftFonts.poppins(14, weight: .medium))
                         Spacer()
-                        Text("View all →")
-                            .font(HitCraftFonts.poppins(14, weight: .light))
-                            .foregroundColor(HitCraftColors.accent)
+                        Button("View all →") {
+                            // Action
+                        }
+                        .foregroundColor(HitCraftColors.accent)
                     }
                     
                     RecentChatsGrid()
                 }
                 .padding(.horizontal, 20)
-                .padding(.top, 89)
+                .padding(.top, 30)
+                
+                Spacer(minLength: 40)
             }
-            .padding(.bottom, 65)
         }
+        .background(HitCraftColors.background)
+        .ignoresSafeArea(.keyboard)
     }
 }
 
 struct RecentChatsGrid: View {
-    let recentChats = [
-        RecentChat(user: "Yinon Yahel", message: "Need help with my 2nd verse lyrics", time: "1 day ago"),
-        RecentChat(user: "Stav Beger", message: "Catchy drop ideas", time: "3 days ago"),
-        RecentChat(user: "Yinon Yahel", message: "Pop ballad production", time: "4 days ago")
-    ]
-    
     var body: some View {
-        LazyVGrid(columns: [
-            GridItem(.flexible()),
-            GridItem(.flexible()),
-            GridItem(.flexible())
-        ], spacing: 16) {
-            ForEach(recentChats, id: \.message) { chat in
-                RecentChatCard(chat: chat)
-            }
+        VStack(spacing: 12) {
+            RecentChatCard(title: "Need help with my 2nd verse...", time: "1 day ago")
+            RecentChatCard(title: "Catchy drop ideas", time: "3 days ago")
+            RecentChatCard(title: "Pop ballad production", time: "4 days ago")
         }
     }
-}
-
-struct RecentChat {
-    let user: String
-    let message: String
-    let time: String
 }
 
 struct RecentChatCard: View {
-    let chat: RecentChat
+    let title: String
+    let time: String
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 15) {
-            HStack(spacing: 12) {
-                Image("preset")
-                    .resizable()
-                    .frame(width: 32, height: 32)
-                    .opacity(0.3)
-                Text(chat.user)
-                    .font(HitCraftFonts.poppins(13, weight: .light))
-                    .foregroundColor(HitCraftColors.text)
-            }
-            
-            Text(chat.message)
-                .font(HitCraftFonts.poppins(13))
-                .foregroundColor(HitCraftColors.secondaryText)
-            
-            HStack(spacing: 10) {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(title)
+                .font(HitCraftFonts.poppins(14, weight: .light))
+            HStack {
                 Image(systemName: "clock")
-                    .font(.system(size: 12))
-                Text(chat.time)
-                    .font(HitCraftFonts.poppins(10, weight: .semibold))
+                Text(time)
             }
-            .foregroundColor(HitCraftColors.text)
+            .font(HitCraftFonts.poppins(12, weight: .light))
+            .foregroundColor(.gray)
         }
-        .padding(17)
-        .frame(height: 144)
+        .padding(16)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color.white)
-        .clipShape(RoundedRectangle(cornerRadius: 14))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay(
-            RoundedRectangle(cornerRadius: 14)
+            RoundedRectangle(cornerRadius: 12)
                 .stroke(HitCraftColors.border, lineWidth: 1)
         )
     }
+}
+
+#Preview {
+    ChatMainView(showingChat: .constant(false))
 }
