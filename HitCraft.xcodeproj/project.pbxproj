@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7A3F5DDD2D2D68AB005C1907 /* hitcraft.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DDC2D2D68AB005C1907 /* hitcraft.png */; };
-		7A3F5DE02D2D68FE005C1907 /* preset.svg in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DDF2D2D68FE005C1907 /* preset.svg */; };
-		7A3F5DE12D2D68FE005C1907 /* hiti.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DDE2D2D68FE005C1907 /* hiti.png */; };
 		7A3F5DF62D2D6940005C1907 /* Poppins-Regular.woff2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DF12D2D6940005C1907 /* Poppins-Regular.woff2.ttf */; };
 		7A3F5DF72D2D6940005C1907 /* Poppins-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DE52D2D6940005C1907 /* Poppins-BlackItalic.ttf */; };
 		7A3F5DF82D2D6940005C1907 /* Poppins-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DEB2D2D6940005C1907 /* Poppins-ExtraLightItalic.ttf */; };
@@ -29,17 +26,27 @@
 		7A3F5E062D2D6940005C1907 /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DEC2D2D6940005C1907 /* Poppins-Italic.ttf */; };
 		7A3F5E072D2D6940005C1907 /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DE82D2D6940005C1907 /* Poppins-ExtraBold.ttf */; };
 		7A3F5E082D2D6940005C1907 /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DF52D2D6940005C1907 /* Poppins-ThinItalic.ttf */; };
+		7A98DCAD2D30308F00DF9C8D /* ActionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A98DC9D2D30308F00DF9C8D /* ActionCard.swift */; };
+		7A98DCAE2D30308F00DF9C8D /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A98DCAB2D30308F00DF9C8D /* SidebarView.swift */; };
+		7A98DCAF2D30308F00DF9C8D /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A98DC9E2D30308F00DF9C8D /* AvatarView.swift */; };
+		7A98DCB02D30308F00DF9C8D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A98DCA52D30308F00DF9C8D /* ContentView.swift */; };
+		7A98DCB12D30308F00DF9C8D /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A98DCA62D30308F00DF9C8D /* DesignSystem.swift */; };
+		7A98DCB22D30308F00DF9C8D /* ChatInputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A98DC9F2D30308F00DF9C8D /* ChatInputBar.swift */; };
+		7A98DCB32D30308F00DF9C8D /* ChatMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A98DCA22D30308F00DF9C8D /* ChatMainView.swift */; };
+		7A98DCB42D30308F00DF9C8D /* ChatInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A98DCA02D30308F00DF9C8D /* ChatInputField.swift */; };
+		7A98DCB52D30308F00DF9C8D /* ChatSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A98DCA32D30308F00DF9C8D /* ChatSummaryView.swift */; };
+		7A98DCB62D30308F00DF9C8D /* ChatInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A98DCA12D30308F00DF9C8D /* ChatInputView.swift */; };
+		7A98DCB72D30308F00DF9C8D /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A98DCA42D30308F00DF9C8D /* ChatView.swift */; };
+		7A98DCB82D30308F00DF9C8D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A98DCA72D30308F00DF9C8D /* Extensions.swift */; };
+		7A98DCB92D30308F00DF9C8D /* MainNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A98DCAA2D30308F00DF9C8D /* MainNavigationView.swift */; };
+		7A98DCBA2D30308F00DF9C8D /* HitCraftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A98DCA92D30308F00DF9C8D /* HitCraftApp.swift */; };
+		7A98DCBB2D30308F00DF9C8D /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A98DCA82D30308F00DF9C8D /* GradientButton.swift */; };
+		7A98DCBC2D30308F00DF9C8D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A98DC9A2D30308F00DF9C8D /* Preview Assets.xcassets */; };
 		7AB5F63D2D2EA02800DDF158 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AB5F63C2D2EA02800DDF158 /* Assets.xcassets */; };
-		7AB5F63F2D2EA24000DDF158 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB5F63E2D2EA24000DDF158 /* AvatarView.swift */; };
-		7AB5F6412D2EA25A00DDF158 /* ActionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB5F6402D2EA25A00DDF158 /* ActionCard.swift */; };
-		7AB5F6432D2EA27100DDF158 /* ChatInputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB5F6422D2EA27100DDF158 /* ChatInputBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7A3F5DB92D2D62FB005C1907 /* HitCraft.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HitCraft.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A3F5DDC2D2D68AB005C1907 /* hitcraft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hitcraft.png; sourceTree = "<group>"; };
-		7A3F5DDE2D2D68FE005C1907 /* hiti.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hiti.png; sourceTree = "<group>"; };
-		7A3F5DDF2D2D68FE005C1907 /* preset.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = preset.svg; sourceTree = "<group>"; };
+		7A3F5DB92D2D62FB005C1907 /* HitCraft.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = HitCraft.app; path = "/Users/oudiantebi/Session42 Dropbox/Oudi Antebi/Mac (3)/Documents/MyCode/iOSapp/HitCraft/build/Debug-iphoneos/HitCraft.app"; sourceTree = "<absolute>"; };
 		7A3F5DE32D2D6940005C1907 /* OFL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
 		7A3F5DE42D2D6940005C1907 /* Poppins-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Black.ttf"; sourceTree = "<group>"; };
 		7A3F5DE52D2D6940005C1907 /* Poppins-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-BlackItalic.ttf"; sourceTree = "<group>"; };
@@ -60,19 +67,24 @@
 		7A3F5DF42D2D6940005C1907 /* Poppins-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Thin.ttf"; sourceTree = "<group>"; };
 		7A3F5DF52D2D6940005C1907 /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
 		7A3F5E0F2D2D731D005C1907 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7A98DC9A2D30308F00DF9C8D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		7A98DC9D2D30308F00DF9C8D /* ActionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionCard.swift; sourceTree = "<group>"; };
+		7A98DC9E2D30308F00DF9C8D /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
+		7A98DC9F2D30308F00DF9C8D /* ChatInputBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputBar.swift; sourceTree = "<group>"; };
+		7A98DCA02D30308F00DF9C8D /* ChatInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputField.swift; sourceTree = "<group>"; };
+		7A98DCA12D30308F00DF9C8D /* ChatInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputView.swift; sourceTree = "<group>"; };
+		7A98DCA22D30308F00DF9C8D /* ChatMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMainView.swift; sourceTree = "<group>"; };
+		7A98DCA32D30308F00DF9C8D /* ChatSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatSummaryView.swift; sourceTree = "<group>"; };
+		7A98DCA42D30308F00DF9C8D /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		7A98DCA52D30308F00DF9C8D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		7A98DCA62D30308F00DF9C8D /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
+		7A98DCA72D30308F00DF9C8D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		7A98DCA82D30308F00DF9C8D /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
+		7A98DCA92D30308F00DF9C8D /* HitCraftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HitCraftApp.swift; sourceTree = "<group>"; };
+		7A98DCAA2D30308F00DF9C8D /* MainNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationView.swift; sourceTree = "<group>"; };
+		7A98DCAB2D30308F00DF9C8D /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		7AB5F63C2D2EA02800DDF158 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		7AB5F63E2D2EA24000DDF158 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
-		7AB5F6402D2EA25A00DDF158 /* ActionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionCard.swift; sourceTree = "<group>"; };
-		7AB5F6422D2EA27100DDF158 /* ChatInputBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		7A3F5DBB2D2D62FB005C1907 /* HitCraft */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = HitCraft;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		7A3F5DB62D2D62FB005C1907 /* Frameworks */ = {
@@ -88,20 +100,17 @@
 		7A3F5DB02D2D62FB005C1907 = {
 			isa = PBXGroup;
 			children = (
-				7AB5F6422D2EA27100DDF158 /* ChatInputBar.swift */,
-				7AB5F6402D2EA25A00DDF158 /* ActionCard.swift */,
-				7AB5F63E2D2EA24000DDF158 /* AvatarView.swift */,
 				7AB5F63C2D2EA02800DDF158 /* Assets.xcassets */,
 				7A3F5E0F2D2D731D005C1907 /* Info.plist */,
 				7A3F5DDA2D2D6852005C1907 /* Resources */,
 				7A3F5DBA2D2D62FB005C1907 /* Products */,
+				7A98DCAC2D30308F00DF9C8D /* HitCraft */,
 			);
 			sourceTree = "<group>";
 		};
 		7A3F5DBA2D2D62FB005C1907 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7A3F5DB92D2D62FB005C1907 /* HitCraft.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -110,20 +119,8 @@
 			isa = PBXGroup;
 			children = (
 				7A3F5DE22D2D6927005C1907 /* Fonts */,
-				7A3F5DDB2D2D685F005C1907 /* Assets */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		7A3F5DDB2D2D685F005C1907 /* Assets */ = {
-			isa = PBXGroup;
-			children = (
-				7A3F5DBB2D2D62FB005C1907 /* HitCraft */,
-				7A3F5DDC2D2D68AB005C1907 /* hitcraft.png */,
-				7A3F5DDE2D2D68FE005C1907 /* hiti.png */,
-				7A3F5DDF2D2D68FE005C1907 /* preset.svg */,
-			);
-			path = Assets;
 			sourceTree = "<group>";
 		};
 		7A3F5DE22D2D6927005C1907 /* Fonts */ = {
@@ -152,6 +149,45 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		7A98DC9B2D30308F00DF9C8D /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				7A98DC9A2D30308F00DF9C8D /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		7A98DC9C2D30308F00DF9C8D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7A98DC9D2D30308F00DF9C8D /* ActionCard.swift */,
+				7A98DC9E2D30308F00DF9C8D /* AvatarView.swift */,
+				7A98DC9F2D30308F00DF9C8D /* ChatInputBar.swift */,
+				7A98DCA02D30308F00DF9C8D /* ChatInputField.swift */,
+				7A98DCA12D30308F00DF9C8D /* ChatInputView.swift */,
+				7A98DCA22D30308F00DF9C8D /* ChatMainView.swift */,
+				7A98DCA32D30308F00DF9C8D /* ChatSummaryView.swift */,
+				7A98DCA42D30308F00DF9C8D /* ChatView.swift */,
+				7A98DCA52D30308F00DF9C8D /* ContentView.swift */,
+				7A98DCA62D30308F00DF9C8D /* DesignSystem.swift */,
+				7A98DCA72D30308F00DF9C8D /* Extensions.swift */,
+				7A98DCA82D30308F00DF9C8D /* GradientButton.swift */,
+				7A98DCA92D30308F00DF9C8D /* HitCraftApp.swift */,
+				7A98DCAA2D30308F00DF9C8D /* MainNavigationView.swift */,
+				7A98DCAB2D30308F00DF9C8D /* SidebarView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7A98DCAC2D30308F00DF9C8D /* HitCraft */ = {
+			isa = PBXGroup;
+			children = (
+				7A98DC9B2D30308F00DF9C8D /* Preview Content */,
+				7A98DC9C2D30308F00DF9C8D /* Views */,
+			);
+			path = HitCraft;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -166,9 +202,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				7A3F5DBB2D2D62FB005C1907 /* HitCraft */,
 			);
 			name = HitCraft;
 			packageProductDependencies = (
@@ -216,9 +249,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A3F5DE02D2D68FE005C1907 /* preset.svg in Resources */,
-				7A3F5DE12D2D68FE005C1907 /* hiti.png in Resources */,
-				7A3F5DDD2D2D68AB005C1907 /* hitcraft.png in Resources */,
 				7A3F5DF62D2D6940005C1907 /* Poppins-Regular.woff2.ttf in Resources */,
 				7A3F5DF72D2D6940005C1907 /* Poppins-BlackItalic.ttf in Resources */,
 				7A3F5DF82D2D6940005C1907 /* Poppins-ExtraLightItalic.ttf in Resources */,
@@ -229,6 +259,7 @@
 				7A3F5DFD2D2D6940005C1907 /* Poppins-ExtraLight.ttf in Resources */,
 				7A3F5DFE2D2D6940005C1907 /* Poppins-BoldItalic.ttf in Resources */,
 				7A3F5DFF2D2D6940005C1907 /* Poppins-Medium.woff2.ttf in Resources */,
+				7A98DCBC2D30308F00DF9C8D /* Preview Assets.xcassets in Resources */,
 				7A3F5E002D2D6940005C1907 /* Poppins-ExtraBoldItalic.ttf in Resources */,
 				7A3F5E012D2D6940005C1907 /* OFL.txt in Resources */,
 				7A3F5E022D2D6940005C1907 /* Poppins-MediumItalic.ttf in Resources */,
@@ -249,9 +280,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AB5F63F2D2EA24000DDF158 /* AvatarView.swift in Sources */,
-				7AB5F6432D2EA27100DDF158 /* ChatInputBar.swift in Sources */,
-				7AB5F6412D2EA25A00DDF158 /* ActionCard.swift in Sources */,
+				7A98DCAD2D30308F00DF9C8D /* ActionCard.swift in Sources */,
+				7A98DCAE2D30308F00DF9C8D /* SidebarView.swift in Sources */,
+				7A98DCAF2D30308F00DF9C8D /* AvatarView.swift in Sources */,
+				7A98DCB02D30308F00DF9C8D /* ContentView.swift in Sources */,
+				7A98DCB12D30308F00DF9C8D /* DesignSystem.swift in Sources */,
+				7A98DCB22D30308F00DF9C8D /* ChatInputBar.swift in Sources */,
+				7A98DCB32D30308F00DF9C8D /* ChatMainView.swift in Sources */,
+				7A98DCB42D30308F00DF9C8D /* ChatInputField.swift in Sources */,
+				7A98DCB52D30308F00DF9C8D /* ChatSummaryView.swift in Sources */,
+				7A98DCB62D30308F00DF9C8D /* ChatInputView.swift in Sources */,
+				7A98DCB72D30308F00DF9C8D /* ChatView.swift in Sources */,
+				7A98DCB82D30308F00DF9C8D /* Extensions.swift in Sources */,
+				7A98DCB92D30308F00DF9C8D /* MainNavigationView.swift in Sources */,
+				7A98DCBA2D30308F00DF9C8D /* HitCraftApp.swift in Sources */,
+				7A98DCBB2D30308F00DF9C8D /* GradientButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
