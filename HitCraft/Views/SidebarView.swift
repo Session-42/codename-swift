@@ -1,93 +1,101 @@
 import SwiftUI
 
+struct Musician: Identifiable {
+    let id = UUID()
+    let name: String
+    let iconAsset: String
+}
+
 struct SidebarView: View {
     @Binding var isOpen: Bool
     @State private var searchText = ""
+    @State private var selectedMusician: String = "Hitcraft" // Default selection
+    
+    let musicians = [
+        Musician(name: "Hitcraft", iconAsset: "hiti2"),
+        Musician(name: "The Chainsmokers", iconAsset: "Chainsmokers"),
+        Musician(name: "Chamillionaire", iconAsset: "chamillionaire"),
+        Musician(name: "Max Martin", iconAsset: "maxmartin"),
+        Musician(name: "Yinon Yahel (DJ)", iconAsset: "yinonyahel")
+    ]
     
     var body: some View {
         ZStack {
             Color.white.edgesIgnoringSafeArea(.all)
             
-            VStack(alignment: .leading, spacing: 24) {
-                // Quick Production Button
-                Button(action: {}) {
-                    HStack(spacing: 8) {
-                        Image(systemName: "plus")
-                            .foregroundColor(.white)
-                        Text("Quick production")
-                            .foregroundColor(.white)
-                            .font(HitCraftFonts.poppins(16, weight: .medium))
-                    }
-                    .frame(height: 50)
-                    .frame(maxWidth: .infinity)
-                    .background(HitCraftColors.primaryGradient)
-                    .clipShape(RoundedRectangle(cornerRadius: 25))
-                }
-                .padding(.horizontal, 20)
-                
+            VStack(alignment: .leading, spacing: 0) {
                 // Search Bar
                 HStack {
                     Image(systemName: "magnifyingglass")
-                        .foregroundColor(.gray)
+                        .foregroundColor(HitCraftColors.secondaryText)
+                        .padding(.leading, 18)
+                    
                     TextField("Search musicians...", text: $searchText)
                         .font(HitCraftFonts.poppins(16, weight: .light))
+                        .padding(.vertical, 13)
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
-                .background(Color(hex: "F4F4F5"))
-                .clipShape(RoundedRectangle(cornerRadius: 25))
+                .background(HitCraftColors.background)
+                .clipShape(RoundedRectangle(cornerRadius: 23))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 23)
+                        .stroke(HitCraftColors.border, lineWidth: 1)
+                )
                 .padding(.horizontal, 20)
+                .padding(.top, 25)
+                
+                Divider()
+                    .padding(.top, 25)
+                    .padding(.bottom, 32)
                 
                 // Recommended Musicians Section
-                VStack(alignment: .leading, spacing: 16) {
-                    Text("Recommended Musicians")
-                        .font(HitCraftFonts.poppins(16, weight: .medium))
-                        .foregroundColor(.black)
-                    
-                    VStack(spacing: 16) {
-                        RecommendedArtistRow(name: "Hiti", subtitle: "HitCraft's AI Bot")
-                        RecommendedArtistRow(name: "Yinon Yahel", subtitle: "HitCraft's AI Bot")
-                        RecommendedArtistRow(name: "Stav Beger", subtitle: "HitCraft's AI Bot")
+                Text("Recommended Musicians")
+                    .font(HitCraftFonts.poppins(11, weight: .light))
+                    .foregroundColor(.black)
+                    .padding(.leading, 32)
+                    .padding(.bottom, 32)
+                
+                VStack(spacing: 8) {
+                    ForEach(musicians) { musician in
+                        Button(action: { selectedMusician = musician.name }) {
+                            HStack(spacing: 17) {
+                                // Icon
+                                Image(musician.iconAsset)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 27, height: 27)
+                                
+                                // Text stack with exact specifications
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text(musician.name)
+                                        .font(.custom("Poppins-SemiBold", size: 13))
+                                        .foregroundColor(.black)
+                                        .lineLimit(1)
+                                    
+                                    Text("Music Producer & Artist")
+                                        .font(.custom("Poppins-Light", size: 13))
+                                        .foregroundColor(.black)
+                                        .lineLimit(1)
+                                }
+                                
+                                Spacer()
+                            }
+                            .padding(.horizontal, 20)
+                            .frame(height: 58)
+                            .background(
+                                RoundedRectangle(cornerRadius: 23)
+                                    .fill(selectedMusician == musician.name ? Color(hex: "E3E9F7").opacity(0.7) : Color.clear)
+                            )
+                            .padding(.horizontal, 20)
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
                 }
-                .padding(.horizontal, 20)
+                .padding(.top, 0)
                 
                 Spacer()
             }
             .padding(.top, 40)
         }
-    }
-}
-
-struct RecommendedArtistRow: View {
-    let name: String
-    let subtitle: String
-    
-    var body: some View {
-        HStack(spacing: 12) {
-            Image(systemName: "music.note.circle")
-                .resizable()
-                .frame(width: 40, height: 40)
-                .foregroundColor(HitCraftColors.accent)
-            
-            VStack(alignment: .leading, spacing: 4) {
-                Text(name)
-                    .font(HitCraftFonts.poppins(16, weight: .medium))
-                    .foregroundColor(.black)
-                Text(subtitle)
-                    .font(HitCraftFonts.poppins(14, weight: .light))
-                    .foregroundColor(.gray)
-            }
-            
-            Spacer()
-        }
-        .padding(16)
-        .background(Color.white)
-        .clipShape(RoundedRectangle(cornerRadius: 20))
-        .overlay(
-            RoundedRectangle(cornerRadius: 20)
-                .stroke(Color.gray.opacity(0.2), lineWidth: 1)
-        )
     }
 }
 

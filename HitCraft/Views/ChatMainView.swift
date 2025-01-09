@@ -5,122 +5,98 @@ struct ChatMainView: View {
     @State private var messageText = ""
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                // Circle with status
-                Circle()
-                    .stroke(Color.gray.opacity(0.2), lineWidth: 1)
-                    .frame(width: 60, height: 60)
-                    .overlay(
-                        Circle()
-                            .fill(Color.green)
-                            .frame(width: 8, height: 8)
-                            .offset(x: 22, y: 22)
-                    )
-                    .padding(.top, 40)
-                
-                // Title
-                HStack(spacing: 4) {
-                    Text("Hiti")
-                        .foregroundColor(HitCraftColors.accent)
-                    Text("|")
-                        .foregroundColor(HitCraftColors.accent)
-                    Text("HitCraft's AI bot")
-                        .foregroundColor(.black)
-                }
-                .font(HitCraftFonts.poppins(14, weight: .light))
-                
-                // Welcome Text
-                Text("GOOD AFTERNOON,")
-                    .font(HitCraftFonts.poppins(32, weight: .light))
-                Text("SANDMAN")
-                    .font(HitCraftFonts.poppins(32, weight: .bold))
-                
-                // Chat Input with embedded send button
-                HStack {
-                    ZStack {
-                        HStack {
-                            TextField("How can I help you make some music today?", text: $messageText)
-                                .padding(.leading, 16)
-                                .padding(.trailing, 50)
-                                .padding(.vertical, 12)
-                        }
-                        
-                        HStack {
-                            Spacer()
-                            Button(action: {}) {
-                                Circle()
-                                    .fill(HitCraftColors.primaryGradient)
-                                    .frame(width: 37, height: 37)
-                                    .overlay(
-                                        Image(systemName: "arrow.up")
-                                            .foregroundColor(.white)
-                                            .rotationEffect(.degrees(45))
-                                    )
-                            }
-                            .padding(.trailing, 6)
-                        }
+        GeometryReader { geometry in
+            ScrollView {
+                VStack(spacing: 32) {
+                    // Welcome Text - starts higher up
+                    VStack(spacing: 8) {
+                        Text("GOOD AFTERNOON,")
+                            .font(HitCraftFonts.poppins(32, weight: .light))
+                        Text("SANDMAN")
+                            .font(HitCraftFonts.poppins(32, weight: .bold))
                     }
+                    .padding(.top, geometry.safeAreaInsets.top)
+                    
+                    // Produce Button
+                    Button(action: {}) {
+                        Circle()
+                            .fill(HitCraftColors.primaryGradient)
+                            .frame(width: 120, height: 120)
+                            .overlay(
+                                Text("Produce")
+                                    .font(HitCraftFonts.poppins(22, weight: .semibold))
+                                    .foregroundColor(.white)
+                            )
+                    }
+                    
+                    // Chat Input
+                    HStack {
+                        TextField("How can I help you make some music today?", text: $messageText)
+                            .font(HitCraftFonts.poppins(15, weight: .light))
+                            .padding(.leading, 16)
+                            .foregroundColor(.gray)
+                        
+                        Button(action: {}) {
+                            Circle()
+                                .fill(HitCraftColors.primaryGradient)
+                                .frame(width: 37, height: 37)
+                                .overlay(
+                                    Image(systemName: "arrow.up")
+                                        .foregroundColor(.white)
+                                        .rotationEffect(.degrees(45))
+                                )
+                        }
+                        .padding(.trailing, 6)
+                    }
+                    .padding(.vertical, 6)
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 25))
                     .overlay(
                         RoundedRectangle(cornerRadius: 25)
                             .stroke(HitCraftColors.border, lineWidth: 1)
                     )
-                }
-                .padding(.horizontal, 20)
-                
-                // Action Cards
-                VStack(spacing: 12) {
-                    Button {
-                        print("Browse Music tapped")
-                    } label: {
+                    .padding(.horizontal, 20)
+                    
+                    // Action Cards
+                    VStack(spacing: 12) {
                         ActionCard(title: "Browse Music", subtitle: "& Produce") {}
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    
-                    Button {
-                        print("Collaborating...")
-                        showingChat = true
-                    } label: {
-                        ActionCard(title: "Let's collaborate & make", subtitle: "your next song together") {}
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    
-                    Button {
-                        print("Get guidance tapped")
-                    } label: {
-                        ActionCard(title: "Get guidance, help and", subtitle: "sounds for your project") {}
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                }
-                .padding(.horizontal, 20)
-                
-                // Recent Chats
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text("Your recent chats")
-                            .font(HitCraftFonts.poppins(14, weight: .medium))
-                        Spacer()
-                        Button("View all →") {
-                            // Action
+                            .buttonStyle(PlainButtonStyle())
+                        
+                        ActionCard(title: "Let's collaborate & make", subtitle: "your next song together") {
+                            showingChat = true
                         }
-                        .foregroundColor(HitCraftColors.accent)
+                        .buttonStyle(PlainButtonStyle())
+                        
+                        ActionCard(title: "Get guidance, help and", subtitle: "sounds for your project") {}
+                            .buttonStyle(PlainButtonStyle())
                     }
+                    .padding(.horizontal, 20)
                     
-                    RecentChatsGrid()
+                    // Recent Chats
+                    VStack(alignment: .leading, spacing: 16) {
+                        HStack {
+                            Text("Your recent chats")
+                                .font(HitCraftFonts.poppins(14, weight: .medium))
+                            Spacer()
+                            Button("View all →") {}
+                                .foregroundColor(HitCraftColors.accent)
+                        }
+                        
+                        RecentChatsGrid()
+                    }
+                    .padding(.horizontal, 20)
+                    
+                    Spacer(minLength: 40)
                 }
-                .padding(.horizontal, 20)
-                .padding(.top, 30)
-                
-                Spacer(minLength: 40)
             }
+            .background(HitCraftColors.background)
         }
+        .ignoresSafeArea(.all, edges: .top)
         .background(HitCraftColors.background)
-        .ignoresSafeArea(.keyboard)
     }
 }
 
+// Keep existing RecentChatsGrid and RecentChatCard components unchanged
 struct RecentChatsGrid: View {
     var body: some View {
         VStack(spacing: 12) {
