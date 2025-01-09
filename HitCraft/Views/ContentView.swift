@@ -39,7 +39,7 @@ struct ContentView: View {
                     ChatMainView(showingChat: $showingChat)
                 }
             }
-            .fullScreenCover(isPresented: $showingSidebar) {
+            .sheet(isPresented: $showingSidebar) {
                 NavigationStack {
                     SidebarView(isOpen: $showingSidebar)
                         .navigationBarTitleDisplayMode(.inline)
@@ -53,6 +53,7 @@ struct ContentView: View {
                             }
                         }
                 }
+                .presentationDetents([.large])
             }
             .navigationDestination(for: Destination.self) { destination in
                 if case .chatSummary = destination {
@@ -60,6 +61,9 @@ struct ContentView: View {
                         .navigationBarTitleDisplayMode(.inline)
                         .navigationBarBackButtonHidden(false)
                 }
+            }
+            .navigationDestination(isPresented: $showingChat) {
+                ChatView()
             }
         }
     }

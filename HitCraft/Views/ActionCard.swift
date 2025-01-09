@@ -4,15 +4,15 @@ struct ActionCard: View {
     let title: String
     let subtitle: String
     let action: () -> Void
-    
+
     var body: some View {
         VStack(alignment: .center, spacing: 4) {
             Text(title)
-                .font(.custom("Poppins-Regular", size: 14))
+                .font(HitCraftFonts.poppins(14, weight: .regular))
                 .foregroundColor(HitCraftColors.text)
                 .multilineTextAlignment(.center)
             Text(subtitle)
-                .font(.custom("Poppins-Light", size: 12))
+                .font(HitCraftFonts.poppins(12, weight: .light))
                 .foregroundColor(HitCraftColors.secondaryText)
                 .multilineTextAlignment(.center)
         }
@@ -30,20 +30,31 @@ struct ActionCard: View {
     }
 }
 
-#Preview {
-    VStack(spacing: 20) {
-        ActionCard(
-            title: "Browse Music",
-            subtitle: "& Produce"
-        ) {
-            print("Card tapped")
+struct ActionCard_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack(spacing: 20) {
+            ActionCard(
+                title: "Browse Music",
+                subtitle: "& Produce",
+                action: {
+                    print("Browse Music tapped")
+                }
+            )
+            ActionCard(
+                title: "Let's collaborate & make",
+                subtitle: "your next song together",
+                action: {
+                    print("Collaborate tapped")
+                }
+            )
+            ActionCard(
+                title: "Get guidance, help and",
+                subtitle: "sounds for your project",
+                action: {
+                    print("Get guidance tapped")
+                }
+            )
         }
-        ActionCard(
-            title: "Let's collaborate & make",
-            subtitle: "your next song together"
-        ) {
-            print("Card tapped")
-        }
+        .padding()
     }
-    .padding()
 }

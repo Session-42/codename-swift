@@ -18,7 +18,7 @@ struct ChatMainView: View {
                     .padding(.top, geometry.safeAreaInsets.top)
                     
                     // Produce Button
-                    Button(action: {}) {
+                    Button(action: { showingChat = true }) {
                         Circle()
                             .fill(HitCraftColors.primaryGradient)
                             .frame(width: 120, height: 120)
@@ -36,7 +36,7 @@ struct ChatMainView: View {
                             .padding(.leading, 16)
                             .foregroundColor(.gray)
                         
-                        Button(action: {}) {
+                        Button(action: { showingChat = true }) {
                             Circle()
                                 .fill(HitCraftColors.primaryGradient)
                                 .frame(width: 37, height: 37)
@@ -59,16 +59,20 @@ struct ChatMainView: View {
                     
                     // Action Cards
                     VStack(spacing: 12) {
-                        ActionCard(title: "Browse Music", subtitle: "& Produce") {}
-                            .buttonStyle(PlainButtonStyle())
+                        ActionCard(title: "Browse Music", subtitle: "& Produce") {
+                            showingChat = true
+                        }
+                        .buttonStyle(PlainButtonStyle())
                         
                         ActionCard(title: "Let's collaborate & make", subtitle: "your next song together") {
                             showingChat = true
                         }
                         .buttonStyle(PlainButtonStyle())
                         
-                        ActionCard(title: "Get guidance, help and", subtitle: "sounds for your project") {}
-                            .buttonStyle(PlainButtonStyle())
+                        ActionCard(title: "Get guidance, help and", subtitle: "sounds for your project") {
+                            showingChat = true
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
                     .padding(.horizontal, 20)
                     
@@ -131,8 +135,4 @@ struct RecentChatCard: View {
                 .stroke(HitCraftColors.border, lineWidth: 1)
         )
     }
-}
-
-#Preview {
-    ChatMainView(showingChat: .constant(false))
 }

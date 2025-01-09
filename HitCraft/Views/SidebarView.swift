@@ -35,9 +35,9 @@ struct SidebarView: View {
                         .padding(.vertical, 13)
                 }
                 .background(HitCraftColors.background)
-                .clipShape(RoundedRectangle(cornerRadius: 23))
+                .clipShape(Capsule())
                 .overlay(
-                    RoundedRectangle(cornerRadius: 23)
+                    Capsule()
                         .stroke(HitCraftColors.border, lineWidth: 1)
                 )
                 .padding(.horizontal, 20)
