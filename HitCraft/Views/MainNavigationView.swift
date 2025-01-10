@@ -2,36 +2,63 @@ import SwiftUI
 
 struct MainNavigationView: View {
     @State private var selectedTab = 0
+    @State private var selectedMusician: Musician?
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            ChatView()
+            // Home tab
+            ContentView(selectedMusician: $selectedMusician)
                 .tabItem {
-                    Image(systemName: "message")
-                    Text("Chat")
+                    Image(systemName: "house.fill")
+                        .background(Color.white)
+                    Text("Home")
                 }
                 .tag(0)
             
-            Text("Discover")
-                .tabItem {
-                    Image(systemName: "magnifyingglass")
-                    Text("Discover")
+            // Chat tab
+            NavigationStack {
+                if let musician = selectedMusician {
+                    ChatView(musician: musician)
+                } else {
+                    Text("Please select a musician from the sidebar")
                 }
-                .tag(1)
+            }
+            .tabItem {
+                Image(systemName: "message")
+                    .background(Color.white)
+                Text("Chat")
+            }
+            .tag(1)
             
-            Text("Library")
-                .tabItem {
-                    Image(systemName: "music.note.list")
-                    Text("Library")
+            // Library tab
+            NavigationStack {
+                if let musician = selectedMusician {
+                    BrowseView(musician: musician)
+                } else {
+                    Text("Please select a musician from the sidebar")
                 }
-                .tag(2)
+            }
+            .tabItem {
+                Image(systemName: "music.note.list")
+                    .background(Color.white)
+                Text("Library")
+            }
+            .tag(2)
             
-            Text("Profile")
-                .tabItem {
-                    Image(systemName: "person")
-                    Text("Profile")
+            // History tab
+            NavigationStack {
+                if let musician = selectedMusician {
+                    ChatSummaryView(isOpen: .constant(true), musician: musician)
+                } else {
+                    Text("Please select a musician from the sidebar")
                 }
-                .tag(3)
+            }
+            .tabItem {
+                Image(systemName: "clock")
+                    .background(Color.white)
+                Text("History")
+            }
+            .tag(3)
         }
     }
 }

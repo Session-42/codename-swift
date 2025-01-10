@@ -1,23 +1,11 @@
 import SwiftUI
 
-struct Musician: Identifiable {
-    let id = UUID()
-    let name: String
-    let iconAsset: String
-}
-
 struct SidebarView: View {
     @Binding var isOpen: Bool
+    @Binding var selectedMusician: Musician?  // Changed to use Musician type
     @State private var searchText = ""
-    @State private var selectedMusician: String = "Hitcraft" // Default selection
     
-    let musicians = [
-        Musician(name: "Hitcraft", iconAsset: "hiti2"),
-        Musician(name: "The Chainsmokers", iconAsset: "Chainsmokers"),
-        Musician(name: "Chamillionaire", iconAsset: "chamillionaire"),
-        Musician(name: "Max Martin", iconAsset: "maxmartin"),
-        Musician(name: "Yinon Yahel (DJ)", iconAsset: "yinonyahel")
-    ]
+    let musicians = Musician.sampleMusicians  // Using the sample data from our model
     
     var body: some View {
         ZStack {
@@ -56,7 +44,10 @@ struct SidebarView: View {
                 
                 VStack(spacing: 8) {
                     ForEach(musicians) { musician in
-                        Button(action: { selectedMusician = musician.name }) {
+                        Button(action: {
+                            selectedMusician = musician
+                            isOpen = false
+                        }) {
                             HStack(spacing: 17) {
                                 // Icon
                                 Image(musician.iconAsset)
@@ -83,7 +74,7 @@ struct SidebarView: View {
                             .frame(height: 58)
                             .background(
                                 RoundedRectangle(cornerRadius: 23)
-                                    .fill(selectedMusician == musician.name ? Color(hex: "E3E9F7").opacity(0.7) : Color.clear)
+                                    .fill(selectedMusician?.id == musician.id ? Color(hex: "E3E9F7").opacity(0.7) : Color.clear)
                             )
                             .padding(.horizontal, 20)
                         }
@@ -100,5 +91,8 @@ struct SidebarView: View {
 }
 
 #Preview {
-    SidebarView(isOpen: .constant(true))
+    SidebarView(
+        isOpen: .constant(true),
+        selectedMusician: .constant(Musician.sampleMusicians[0])
+    )
 }

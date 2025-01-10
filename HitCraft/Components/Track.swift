@@ -1,8 +1,9 @@
-//
-//  Track.swift
-//  HitCraft
-//
-//  Created by Oudi Antebi on 10/01/2025.
-//
-
 import Foundation
+
+struct Track: Identifiable {
+    let id = UUID()
+    let title: String
+    let artist: String
+    let imageNumber: Int
+    let verified: Bool
+}

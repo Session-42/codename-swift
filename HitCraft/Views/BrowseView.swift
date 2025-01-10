@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct BrowseView: View {
+    let musician: Musician
     @Environment(\.dismiss) private var dismiss
     @State private var selectedGenre = "All Genres"
     @State private var selectedMood = "All Moods"
@@ -10,13 +11,15 @@ struct BrowseView: View {
     let genres = ["All Genres", "Hip-Hop", "R&B", "Pop", "Electronic"]
     let moods = ["All Moods", "Energetic", "Chill", "Dark", "Happy"]
     
-    let tracks: [Track] = (1...20).map { index in
-        Track(
-            title: "Track \(index)",
-            artist: "Artist \(index)",
-            imageNumber: ((index - 1) % 6) + 1,
-            verified: true
-        )
+    var tracks: [Track] {
+        musician.library.isEmpty ? (1...20).map { index in
+            Track(
+                title: "Track \(index)",
+                artist: musician.name,
+                imageNumber: ((index - 1) % 6) + 1,
+                verified: true
+            )
+        } : musician.library
     }
     
     var body: some View {
@@ -25,11 +28,11 @@ struct BrowseView: View {
                 // Title Section
                 VStack(spacing: 4) {
                     HStack {
-                        Text("Hiti")
+                        Text(musician.name)
                             .foregroundColor(HitCraftColors.accent)
                         Text("|")
                             .foregroundColor(HitCraftColors.accent)
-                        Text("HitCraft's AI bot")
+                        Text("Library")
                             .foregroundColor(.black)
                     }
                     .font(HitCraftFonts.poppins(14, weight: .regular))
@@ -126,78 +129,19 @@ struct BrowseView: View {
                         .foregroundColor(HitCraftColors.text)
                 }
             }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: { dismiss() }) {
+                    Text("Done")
+                        .foregroundColor(.blue)
+                        .font(HitCraftFonts.poppins(17, weight: .regular))
+                }
+            }
         }
     }
 }
 
-// ContentView.swift
-import SwiftUI
-
-struct ContentView: View {
-    @State private var navigationPath = NavigationPath()
-    @State private var showingChat = false
-    @State private var showingSidebar = false
-    
-    var body: some View {
-        NavigationStack(path: $navigationPath) {
-            ZStack {
-                HitCraftColors.background
-                    .ignoresSafeArea()
-                
-                VStack(spacing: 0) {
-                    // Navigation Bar
-                    HStack {
-                        Button(action: {
-                            showingSidebar = true
-                        }) {
-                            Image(systemName: "line.3.horizontal")
-                                .font(.system(size: 24))
-                                .foregroundColor(.black)
-                                .frame(width: 44, height: 44)
-                        }
-                        
-                        Spacer()
-                        
-                        Button(action: {
-                            navigationPath.append(Destination.chatSummary)
-                        }) {
-                            Image(systemName: "bubble.right")
-                                .font(.system(size: 24))
-                                .foregroundColor(.black)
-                                .frame(width: 44, height: 44)
-                        }
-                    }
-                    .padding(.horizontal, 20)
-                    
-                    ChatMainView(showingChat: $showingChat)
-                }
-            }
-            .sheet(isPresented: $showingSidebar) {
-                NavigationStack {
-                    SidebarView(isOpen: $showingSidebar)
-                        .navigationBarTitleDisplayMode(.inline)
-                        .toolbar {
-                            ToolbarItem(placement: .navigationBarTrailing) {
-                                Button(action: {
-                                    showingSidebar = false
-                                }) {
-                                    Text("Done")
-                                }
-                            }
-                        }
-                }
-                .presentationDetents([.large])
-            }
-            .navigationDestination(for: Destination.self) { destination in
-                if case .chatSummary = destination {
-                    ChatSummaryView(isOpen: .constant(true))
-                        .navigationBarTitleDisplayMode(.inline)
-                        .navigationBarBackButtonHidden(false)
-                }
-            }
-            .navigationDestination(isPresented: $showingChat) {
-                ChatView()
-            }
-        }
+#Preview {
+    NavigationStack {
+        BrowseView(musician: Musician.sampleMusicians[0])
     }
 }

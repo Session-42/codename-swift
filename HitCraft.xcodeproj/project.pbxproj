@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A39BF662D3104230022FEC0 /* BrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A39BF652D3104230022FEC0 /* BrowseView.swift */; };
+		7A39BF6F2D3111320022FEC0 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A39BF6E2D3111320022FEC0 /* MainTabView.swift */; };
 		7A3F5DF62D2D6940005C1907 /* Poppins-Regular.woff2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DF12D2D6940005C1907 /* Poppins-Regular.woff2.ttf */; };
 		7A3F5DF72D2D6940005C1907 /* Poppins-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DE52D2D6940005C1907 /* Poppins-BlackItalic.ttf */; };
 		7A3F5DF82D2D6940005C1907 /* Poppins-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F5DEB2D2D6940005C1907 /* Poppins-ExtraLightItalic.ttf */; };
@@ -48,7 +50,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7A3F5DB92D2D62FB005C1907 /* HitCraft.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = HitCraft.app; path = "/Users/oudiantebi/Session42 Dropbox/Oudi Antebi/Mac (3)/Documents/MyCode/iOSapp/HitCraft/build/Debug-iphoneos/HitCraft.app"; sourceTree = "<absolute>"; };
+		7A39BF642D31036D0022FEC0 /* HitCraft.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HitCraft.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A39BF652D3104230022FEC0 /* BrowseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseView.swift; sourceTree = "<group>"; };
+		7A39BF6E2D3111320022FEC0 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		7A3F5DE32D2D6940005C1907 /* OFL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
 		7A3F5DE42D2D6940005C1907 /* Poppins-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Black.ttf"; sourceTree = "<group>"; };
 		7A3F5DE52D2D6940005C1907 /* Poppins-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-BlackItalic.ttf"; sourceTree = "<group>"; };
@@ -90,6 +94,19 @@
 		7AB5F63C2D2EA02800DDF158 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		7A39BF672D3106F50022FEC0 /* Components */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Components;
+			sourceTree = "<group>";
+		};
+		7A39BF792D311D810022FEC0 /* Models */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Models;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		7A3F5DB62D2D62FB005C1907 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -115,6 +132,7 @@
 		7A3F5DBA2D2D62FB005C1907 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				7A39BF642D31036D0022FEC0 /* HitCraft.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -171,6 +189,7 @@
 				7A98DC9F2D30308F00DF9C8D /* ChatInputBar.swift */,
 				7A98DCA02D30308F00DF9C8D /* ChatInputField.swift */,
 				7A98DCA12D30308F00DF9C8D /* ChatInputView.swift */,
+				7A39BF652D3104230022FEC0 /* BrowseView.swift */,
 				7A98DCA22D30308F00DF9C8D /* ChatMainView.swift */,
 				7A98DCA32D30308F00DF9C8D /* ChatSummaryView.swift */,
 				7A98DCA42D30308F00DF9C8D /* ChatView.swift */,
@@ -181,6 +200,7 @@
 				7A98DCA92D30308F00DF9C8D /* HitCraftApp.swift */,
 				7A98DCAA2D30308F00DF9C8D /* MainNavigationView.swift */,
 				7A98DCAB2D30308F00DF9C8D /* SidebarView.swift */,
+				7A39BF6E2D3111320022FEC0 /* MainTabView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -188,6 +208,8 @@
 		7A98DCAC2D30308F00DF9C8D /* HitCraft */ = {
 			isa = PBXGroup;
 			children = (
+				7A39BF792D311D810022FEC0 /* Models */,
+				7A39BF672D3106F50022FEC0 /* Components */,
 				7A98DC9B2D30308F00DF9C8D /* Preview Content */,
 				7A98DC9C2D30308F00DF9C8D /* Views */,
 			);
@@ -209,11 +231,15 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				7A39BF672D3106F50022FEC0 /* Components */,
+				7A39BF792D311D810022FEC0 /* Models */,
+			);
 			name = HitCraft;
 			packageProductDependencies = (
 			);
 			productName = HitCraft;
-			productReference = 7A3F5DB92D2D62FB005C1907 /* HitCraft.app */;
+			productReference = 7A39BF642D31036D0022FEC0 /* HitCraft.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -293,9 +319,11 @@
 				7A98DCAF2D30308F00DF9C8D /* AvatarView.swift in Sources */,
 				7A98DCB02D30308F00DF9C8D /* ContentView.swift in Sources */,
 				7A98DCB12D30308F00DF9C8D /* DesignSystem.swift in Sources */,
+				7A39BF6F2D3111320022FEC0 /* MainTabView.swift in Sources */,
 				7A98DCB22D30308F00DF9C8D /* ChatInputBar.swift in Sources */,
 				7A98DCB32D30308F00DF9C8D /* ChatMainView.swift in Sources */,
 				7A98DCB42D30308F00DF9C8D /* ChatInputField.swift in Sources */,
+				7A39BF662D3104230022FEC0 /* BrowseView.swift in Sources */,
 				7A98DCB52D30308F00DF9C8D /* ChatSummaryView.swift in Sources */,
 				7A98DCB62D30308F00DF9C8D /* ChatInputView.swift in Sources */,
 				7A98DCB72D30308F00DF9C8D /* ChatView.swift in Sources */,

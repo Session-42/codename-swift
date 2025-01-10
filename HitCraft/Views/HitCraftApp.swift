@@ -4,7 +4,7 @@ import SwiftUI
 struct HitCraftApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainNavigationView()
         }
     }
 }

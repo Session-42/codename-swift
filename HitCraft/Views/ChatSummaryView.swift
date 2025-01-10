@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ChatSummaryView: View {
     @Binding var isOpen: Bool
+    let musician: Musician
     @State private var searchText = ""
     
     var body: some View {
@@ -12,9 +13,13 @@ struct ChatSummaryView: View {
                 VStack(alignment: .leading, spacing: 0) {
                     // Title
                     HStack(spacing: 8) {
-                        Text("SESSIONS SUMMARY")
-                            .font(HitCraftFonts.poppins(16, weight: .bold))
-                            .foregroundColor(.black)
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(musician.name)
+                                .foregroundColor(HitCraftColors.accent)
+                            Text("SESSIONS SUMMARY")
+                                .font(HitCraftFonts.poppins(16, weight: .bold))
+                                .foregroundColor(.black)
+                        }
                     }
                     .padding(.top, 37)
                     .padding(.bottom, 41)
@@ -80,5 +85,5 @@ struct ChatItem: View {
 }
 
 #Preview {
-    ChatSummaryView(isOpen: .constant(true))
+    ChatSummaryView(isOpen: .constant(true), musician: Musician.sampleMusicians[0])
 }

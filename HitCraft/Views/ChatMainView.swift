@@ -3,22 +3,31 @@ import SwiftUI
 struct ChatMainView: View {
     @Binding var showingChat: Bool
     @State private var messageText = ""
+    @State private var showingBrowse = false
+    let musician: Musician?
     
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
                 VStack(spacing: 32) {
-                    // Welcome Text - starts higher up
-                    VStack(spacing: 8) {
-                        Text("GOOD AFTERNOON,")
-                            .font(HitCraftFonts.poppins(32, weight: .light))
-                        Text("SANDMAN")
-                            .font(HitCraftFonts.poppins(32, weight: .bold))
+                    // Header
+                    VStack(spacing: 4) {
+                        HStack {
+                            Spacer()
+                            Text(musician?.name ?? "Hiti")
+                                .foregroundColor(HitCraftColors.accent)
+                            Text("|")
+                                .foregroundColor(HitCraftColors.accent)
+                            Text("HitCraft")
+                                .foregroundColor(.black)
+                            Spacer()
+                        }
+                        .font(.custom("Poppins-Regular", size: 14))
                     }
-                    .padding(.top, geometry.safeAreaInsets.top)
+                    .padding(.top, geometry.safeAreaInsets.top + 16)
                     
                     // Produce Button
-                    Button(action: { showingChat = true }) {
+                    Button(action: { showingBrowse = true }) {
                         Circle()
                             .fill(HitCraftColors.primaryGradient)
                             .frame(width: 120, height: 120)
@@ -27,6 +36,14 @@ struct ChatMainView: View {
                                     .font(HitCraftFonts.poppins(22, weight: .semibold))
                                     .foregroundColor(.white)
                             )
+                    }
+                    .sheet(isPresented: $showingBrowse) {
+                        NavigationStack {
+                            if let musician = musician {
+                                BrowseView(musician: musician)
+                            }
+                        }
+                        .presentationDetents([.large])
                     }
                     
                     // Chat Input
@@ -60,7 +77,7 @@ struct ChatMainView: View {
                     // Action Cards
                     VStack(spacing: 12) {
                         ActionCard(title: "Browse Music", subtitle: "& Produce") {
-                            showingChat = true
+                            showingBrowse = true
                         }
                         .buttonStyle(PlainButtonStyle())
                         
