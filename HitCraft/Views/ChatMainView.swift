@@ -1,5 +1,4 @@
 import SwiftUI
-
 struct ChatMainView: View {
     @Binding var showingChat: Bool
     @State private var messageText = ""
@@ -8,24 +7,15 @@ struct ChatMainView: View {
     @EnvironmentObject private var tabSelection: TabSelection
     
     var body: some View {
-        GeometryReader { geometry in
+        VStack(spacing: 0) {
+            // Header - Keeping same style as other views
+            MusicianHeader(musician: musician, showSwitchOption: true)
+            
             ScrollView {
                 VStack(spacing: 32) {
-                    // Header
-                    VStack(spacing: 4) {
-                        HStack {
-                            Spacer()
-                            Text(musician?.name ?? "Hiti")
-                                .foregroundColor(HitCraftColors.accent)
-                            Spacer()
-                        }
-                        .font(.custom("Poppins-Regular", size: 14))
-                    }
-                    .padding(.top, geometry.safeAreaInsets.top + 16)
-                    
-                    // Produce Button
+                    // Rest of the content remains the same
                     Button(action: {
-                        tabSelection.switchTab(to: 2) // Switch to Library tab
+                        tabSelection.switchTab(to: 2)
                     }) {
                         Circle()
                             .fill(HitCraftColors.primaryGradient)
@@ -36,6 +26,9 @@ struct ChatMainView: View {
                                     .foregroundColor(.white)
                             )
                     }
+                    .padding(.top, 16) // Reduced from 32 to match other views
+                    
+                    // Rest of your existing content...
                     
                     // Chat Input
                     HStack {
@@ -116,9 +109,7 @@ struct ChatMainView: View {
                     Spacer(minLength: 40)
                 }
             }
-            .background(HitCraftColors.background)
         }
-        .ignoresSafeArea(.all, edges: .top)
         .background(HitCraftColors.background)
     }
 }

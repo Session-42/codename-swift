@@ -21,19 +21,8 @@ struct ChatView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            // Title Section
-            VStack(spacing: 4) {
-                HStack {
-                    Text(musician?.name ?? "Hiti")
-                        .foregroundColor(HitCraftColors.accent)
-                    Text("|")
-                        .foregroundColor(HitCraftColors.accent)
-                    Text("Chat")
-                        .foregroundColor(.black)
-                }
-                .font(HitCraftFonts.poppins(14, weight: .regular))
-            }
-            .padding(.top, 16)
+            // New Musician Header
+            MusicianHeader(musician: musician, showSwitchOption: true)
             
             // Chat Messages
             ScrollView {
@@ -70,6 +59,11 @@ struct ChatView: View {
                         .background(
                             RoundedRectangle(cornerRadius: 12)
                                 .fill(Color.white)
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(HitCraftColors.border, lineWidth: 1.5)
+                                .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
                         )
                         .padding(16)
                         .onSubmit {
@@ -117,22 +111,7 @@ struct ChatView: View {
             }
         }
         .background(HitCraftColors.background)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { dismiss() }) {
-                    Image(systemName: "arrow.left")
-                        .foregroundColor(HitCraftColors.text)
-                }
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: { dismiss() }) {
-                    Text("Done")
-                        .foregroundColor(.blue)
-                        .font(HitCraftFonts.poppins(17, weight: .regular))
-                }
-            }
-        }
+        .navigationBarHidden(true)
     }
     
     private func sendMessage() {

@@ -2,7 +2,6 @@ import SwiftUI
 
 struct BrowseView: View {
     let musician: Musician
-    @Environment(\.dismiss) private var dismiss
     @State private var selectedGenre = "All Genres"
     @State private var selectedMood = "All Moods"
     @State private var searchText = ""
@@ -23,120 +22,96 @@ struct BrowseView: View {
     }
     
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: 0) {
-                // Title Section
-                VStack(spacing: 4) {
-                    HStack {
-                        Text(musician.name)
-                            .foregroundColor(HitCraftColors.accent)
-                        Text("|")
-                            .foregroundColor(HitCraftColors.accent)
-                        Text("Library")
-                            .foregroundColor(.black)
-                    }
-                    .font(HitCraftFonts.poppins(14, weight: .regular))
-                    
+        VStack(spacing: 0) {
+            // New Musician Header
+            MusicianHeader(musician: musician, showSwitchOption: true)
+            
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 0) {
                     Text("Listen. Select. Produce")
                         .font(HitCraftFonts.poppins(32, weight: .bold))
                         .multilineTextAlignment(.center)
-                        .padding(.top, 8)
-                }
-                .padding(.top, 16)
-                
-                // Filter Menus
-                HStack(spacing: 12) {
-                    Menu {
-                        ForEach(genres, id: \.self) { genre in
-                            Button(action: { selectedGenre = genre }) {
-                                if genre == selectedGenre {
-                                    Label(genre, systemImage: "checkmark")
-                                } else {
-                                    Text(genre)
-                                }
-                            }
-                        }
-                    } label: {
-                        HStack {
-                            Text(selectedGenre)
-                                .font(HitCraftFonts.poppins(14, weight: .regular))
-                            Image(systemName: "chevron.down")
-                                .font(.system(size: 12))
-                        }
-                        .foregroundColor(.black)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 12)
-                        .background(Color.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(HitCraftColors.border, lineWidth: 1)
-                        )
-                    }
+                        .padding(.top, 24)
                     
-                    Menu {
-                        ForEach(moods, id: \.self) { mood in
-                            Button(action: { selectedMood = mood }) {
-                                if mood == selectedMood {
-                                    Label(mood, systemImage: "checkmark")
-                                } else {
-                                    Text(mood)
+                    // Filter Menus
+                    HStack(spacing: 12) {
+                        Menu {
+                            ForEach(genres, id: \.self) { genre in
+                                Button(action: { selectedGenre = genre }) {
+                                    if genre == selectedGenre {
+                                        Label(genre, systemImage: "checkmark")
+                                    } else {
+                                        Text(genre)
+                                    }
                                 }
                             }
+                        } label: {
+                            HStack {
+                                Text(selectedGenre)
+                                    .font(HitCraftFonts.poppins(14, weight: .regular))
+                                Image(systemName: "chevron.down")
+                                    .font(.system(size: 12))
+                            }
+                            .foregroundColor(.black)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 12)
+                            .background(Color.white)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(HitCraftColors.border, lineWidth: 1)
+                            )
                         }
-                    } label: {
-                        HStack {
-                            Text(selectedMood)
-                                .font(HitCraftFonts.poppins(14, weight: .regular))
-                            Image(systemName: "chevron.down")
-                                .font(.system(size: 12))
+                        
+                        Menu {
+                            ForEach(moods, id: \.self) { mood in
+                                Button(action: { selectedMood = mood }) {
+                                    if mood == selectedMood {
+                                        Label(mood, systemImage: "checkmark")
+                                    } else {
+                                        Text(mood)
+                                    }
+                                }
+                            }
+                        } label: {
+                            HStack {
+                                Text(selectedMood)
+                                    .font(HitCraftFonts.poppins(14, weight: .regular))
+                                Image(systemName: "chevron.down")
+                                    .font(.system(size: 12))
+                            }
+                            .foregroundColor(.black)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 12)
+                            .background(Color.white)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(HitCraftColors.border, lineWidth: 1)
+                            )
                         }
-                        .foregroundColor(.black)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 12)
-                        .background(Color.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(HitCraftColors.border, lineWidth: 1)
-                        )
                     }
-                }
-                .padding(.horizontal, 20)
-                .padding(.top, 20)
-                
-                // Tracks Grid
-                LazyVGrid(
-                    columns: [
-                        GridItem(.flexible(), spacing: 16),
-                        GridItem(.flexible(), spacing: 16)
-                    ],
-                    spacing: 16
-                ) {
-                    ForEach(tracks) { track in
-                        TrackCard(track: track, showingUploadDemo: $showingUploadDemo)
+                    .padding(.horizontal, 20)
+                    .padding(.top, 20)
+                    
+                    // Tracks Grid
+                    LazyVGrid(
+                        columns: [
+                            GridItem(.flexible(), spacing: 16),
+                            GridItem(.flexible(), spacing: 16)
+                        ],
+                        spacing: 16
+                    ) {
+                        ForEach(tracks) { track in
+                            TrackCard(track: track, showingUploadDemo: $showingUploadDemo)
+                        }
                     }
+                    .padding(20)
                 }
-                .padding(20)
             }
         }
         .background(HitCraftColors.background)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { dismiss() }) {
-                    Image(systemName: "arrow.left")
-                        .foregroundColor(HitCraftColors.text)
-                }
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: { dismiss() }) {
-                    Text("Done")
-                        .foregroundColor(.blue)
-                        .font(HitCraftFonts.poppins(17, weight: .regular))
-                }
-            }
-        }
+        .navigationBarHidden(true)
     }
 }
 

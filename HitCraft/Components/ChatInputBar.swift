@@ -1,20 +1,18 @@
 import SwiftUI
 
-struct ChatInputField: View {
-    @Binding var text: String
-    let placeholder: String
-    let onSend: () -> Void
+struct ChatInputBar: View {
+    @State private var messageText = ""
+    var onSend: () -> Void
     
     var body: some View {
         HStack(spacing: 12) {
-            TextField(placeholder, text: $text)
-                .font(HitCraftFonts.poppins(15, weight: .light))
+            TextField("How can I help you make some music today?", text: $messageText)
                 .padding(.horizontal, 16)
                 .padding(.vertical, 12)
                 .background(Color.white)
-                .clipShape(Capsule())
+                .clipShape(RoundedRectangle(cornerRadius: 25))
                 .overlay(
-                    Capsule()
+                    RoundedRectangle(cornerRadius: 25)
                         .stroke(HitCraftColors.border, lineWidth: 1)
                 )
             
@@ -34,10 +32,5 @@ struct ChatInputField: View {
 }
 
 #Preview {
-    ChatInputField(
-        text: .constant(""),
-        placeholder: "How can I help you make some music today?"
-    ) {
-        // Send action
-    }
+    ChatInputBar(onSend: {})
 }
