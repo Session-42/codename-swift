@@ -1,14 +1,11 @@
 import SwiftUI
 
-enum Destination: Hashable {
-    case chatSummary
-}
-
 struct ContentView: View {
     @Binding var selectedMusician: Musician?
     @State private var navigationPath = NavigationPath()
     @State private var showingChat = false
     @State private var showingSidebar = false
+    @State private var initialMessage: String?
     
     var body: some View {
         NavigationStack(path: $navigationPath) {
@@ -40,7 +37,7 @@ struct ContentView: View {
                     .padding(.horizontal, 20)
                     
                     // Main Content
-                    ChatMainView(showingChat: $showingChat, musician: selectedMusician)
+                    ChatMainView(showingChat: $showingChat, initialMessage: $initialMessage, musician: selectedMusician)
                 }
                 
                 // Custom sidebar transition from left
@@ -65,15 +62,6 @@ struct ContentView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
-            .navigationDestination(isPresented: $showingChat) {
-                if let musician = selectedMusician {
-                    ChatView(musician: musician)
-                }
-            }
         }
     }
-}
-
-#Preview {
-    ContentView(selectedMusician: .constant(nil))
 }

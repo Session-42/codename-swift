@@ -2,7 +2,9 @@ import SwiftUI
 
 struct MainTabView: View {
     @State private var selectedTab = 0
-    @State private var selectedMusician: Musician?
+    @Binding var selectedMusician: Musician?
+    @State private var initialMessage: String?
+    @State private var showingChat = false
     
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -20,7 +22,7 @@ struct MainTabView: View {
                 if let musician = selectedMusician {
                     ChatView(musician: musician)
                 } else {
-                    Text("Please select a musician from the sidebar")
+                    ChatView(musician: Musician.sampleMusicians[0])
                 }
             }
             .tabItem {
@@ -35,7 +37,7 @@ struct MainTabView: View {
                 if let musician = selectedMusician {
                     BrowseView(musician: musician)
                 } else {
-                    Text("Please select a musician from the sidebar")
+                    BrowseView(musician: Musician.sampleMusicians[0])
                 }
             }
             .tabItem {
@@ -50,7 +52,7 @@ struct MainTabView: View {
                 if let musician = selectedMusician {
                     ChatSummaryView(isOpen: .constant(true), musician: musician)
                 } else {
-                    Text("Please select a musician from the sidebar")
+                    ChatSummaryView(isOpen: .constant(true), musician: Musician.sampleMusicians[0])
                 }
             }
             .tabItem {
@@ -60,9 +62,18 @@ struct MainTabView: View {
             }
             .tag(3)
         }
+        .environmentObject(TabSelection(selection: $selectedTab))
     }
 }
 
-#Preview {
-    MainTabView()
+class TabSelection: ObservableObject {
+    @Binding var selection: Int
+    
+    init(selection: Binding<Int>) {
+        self._selection = selection
+    }
+    
+    func switchTab(to tab: Int) {
+        selection = tab
+    }
 }

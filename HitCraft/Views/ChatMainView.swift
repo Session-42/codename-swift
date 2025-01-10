@@ -3,8 +3,9 @@ import SwiftUI
 struct ChatMainView: View {
     @Binding var showingChat: Bool
     @State private var messageText = ""
-    @State private var showingBrowse = false
+    @Binding var initialMessage: String?
     let musician: Musician?
+    @EnvironmentObject private var tabSelection: TabSelection
     
     var body: some View {
         GeometryReader { geometry in
@@ -16,10 +17,6 @@ struct ChatMainView: View {
                             Spacer()
                             Text(musician?.name ?? "Hiti")
                                 .foregroundColor(HitCraftColors.accent)
-                            Text("|")
-                                .foregroundColor(HitCraftColors.accent)
-                            Text("HitCraft")
-                                .foregroundColor(.black)
                             Spacer()
                         }
                         .font(.custom("Poppins-Regular", size: 14))
@@ -27,7 +24,9 @@ struct ChatMainView: View {
                     .padding(.top, geometry.safeAreaInsets.top + 16)
                     
                     // Produce Button
-                    Button(action: { showingBrowse = true }) {
+                    Button(action: {
+                        tabSelection.switchTab(to: 2) // Switch to Library tab
+                    }) {
                         Circle()
                             .fill(HitCraftColors.primaryGradient)
                             .frame(width: 120, height: 120)
@@ -37,14 +36,6 @@ struct ChatMainView: View {
                                     .foregroundColor(.white)
                             )
                     }
-                    .sheet(isPresented: $showingBrowse) {
-                        NavigationStack {
-                            if let musician = musician {
-                                BrowseView(musician: musician)
-                            }
-                        }
-                        .presentationDetents([.large])
-                    }
                     
                     // Chat Input
                     HStack {
@@ -52,8 +43,21 @@ struct ChatMainView: View {
                             .font(HitCraftFonts.poppins(15, weight: .light))
                             .padding(.leading, 16)
                             .foregroundColor(.gray)
+                            .onSubmit {
+                                if !messageText.isEmpty {
+                                    initialMessage = messageText
+                                    messageText = ""
+                                    tabSelection.switchTab(to: 1)
+                                }
+                            }
                         
-                        Button(action: { showingChat = true }) {
+                        Button(action: {
+                            if !messageText.isEmpty {
+                                initialMessage = messageText
+                                messageText = ""
+                                tabSelection.switchTab(to: 1)
+                            }
+                        }) {
                             Circle()
                                 .fill(HitCraftColors.primaryGradient)
                                 .frame(width: 37, height: 37)
@@ -77,17 +81,17 @@ struct ChatMainView: View {
                     // Action Cards
                     VStack(spacing: 12) {
                         ActionCard(title: "Browse Music", subtitle: "& Produce") {
-                            showingBrowse = true
+                            tabSelection.switchTab(to: 1)
                         }
                         .buttonStyle(PlainButtonStyle())
                         
                         ActionCard(title: "Let's collaborate & make", subtitle: "your next song together") {
-                            showingChat = true
+                            tabSelection.switchTab(to: 1)
                         }
                         .buttonStyle(PlainButtonStyle())
                         
                         ActionCard(title: "Get guidance, help and", subtitle: "sounds for your project") {
-                            showingChat = true
+                            tabSelection.switchTab(to: 1)
                         }
                         .buttonStyle(PlainButtonStyle())
                     }
@@ -99,8 +103,10 @@ struct ChatMainView: View {
                             Text("Your recent chats")
                                 .font(HitCraftFonts.poppins(14, weight: .medium))
                             Spacer()
-                            Button("View all →") {}
-                                .foregroundColor(HitCraftColors.accent)
+                            Button("View all →") {
+                                tabSelection.switchTab(to: 3)
+                            }
+                            .foregroundColor(HitCraftColors.accent)
                         }
                         
                         RecentChatsGrid()
@@ -114,42 +120,5 @@ struct ChatMainView: View {
         }
         .ignoresSafeArea(.all, edges: .top)
         .background(HitCraftColors.background)
-    }
-}
-
-// Keep existing RecentChatsGrid and RecentChatCard components unchanged
-struct RecentChatsGrid: View {
-    var body: some View {
-        VStack(spacing: 12) {
-            RecentChatCard(title: "Need help with my 2nd verse...", time: "1 day ago")
-            RecentChatCard(title: "Catchy drop ideas", time: "3 days ago")
-            RecentChatCard(title: "Pop ballad production", time: "4 days ago")
-        }
-    }
-}
-
-struct RecentChatCard: View {
-    let title: String
-    let time: String
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(title)
-                .font(HitCraftFonts.poppins(14, weight: .light))
-            HStack {
-                Image(systemName: "clock")
-                Text(time)
-            }
-            .font(HitCraftFonts.poppins(12, weight: .light))
-            .foregroundColor(.gray)
-        }
-        .padding(16)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.white)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(HitCraftColors.border, lineWidth: 1)
-        )
     }
 }

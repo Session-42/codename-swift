@@ -4,59 +4,67 @@ struct ChatSummaryView: View {
     @Binding var isOpen: Bool
     let musician: Musician
     @State private var searchText = ""
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                Color.white.edgesIgnoringSafeArea(.all)
-                
-                VStack(alignment: .leading, spacing: 0) {
-                    // Title
-                    HStack(spacing: 8) {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(musician.name)
-                                .foregroundColor(HitCraftColors.accent)
-                            Text("SESSIONS SUMMARY")
-                                .font(HitCraftFonts.poppins(16, weight: .bold))
-                                .foregroundColor(.black)
-                        }
-                    }
-                    .padding(.top, 37)
-                    .padding(.bottom, 41)
-                    .padding(.horizontal, 22)
-                    
-                    Divider()
-                        .background(HitCraftColors.border.opacity(0.13))
-                    
-                    // Search
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 0) {
+                // Title Section
+                VStack(spacing: 4) {
                     HStack {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(HitCraftColors.secondaryText)
-                        TextField("Search chats...", text: $searchText)
-                            .font(HitCraftFonts.poppins(14, weight: .light))
+                        Text(musician.name)
+                            .foregroundColor(HitCraftColors.accent)
+                        Text("|")
+                            .foregroundColor(HitCraftColors.accent)
+                        Text("History")
+                            .foregroundColor(.black)
                     }
-                    .padding(.horizontal, 18)
-                    .padding(.vertical, 13)
-                    .background(HitCraftColors.background)
-                    .clipShape(Capsule())
-                    .padding(.horizontal, 18)
-                    .padding(.top, 32)
-                    
-                    // Chat List
-                    ScrollView {
-                        VStack(spacing: 15) {
-                            ChatItem(title: "Need help with my 2nd verse lyrics")
-                            ChatItem(title: "Catchy drop ideas")
-                            ChatItem(title: "Pop ballad production")
-                            ChatItem(title: "Sound design exploration")
-                            ChatItem(title: "Mixing advice needed")
-                        }
-                        .padding(.horizontal, 18)
-                        .padding(.top, 30)
-                    }
+                    .font(HitCraftFonts.poppins(14, weight: .regular))
+                }
+                .padding(.top, 16)
+                
+                // Search bar instead of subtitle
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(HitCraftColors.secondaryText)
+                    TextField("Search chats...", text: $searchText)
+                        .font(HitCraftFonts.poppins(14, weight: .light))
+                }
+                .padding(.horizontal, 18)
+                .padding(.vertical, 13)
+                .background(HitCraftColors.background)
+                .clipShape(Capsule())
+                .padding(.horizontal, 18)
+                .padding(.top, 20)
+                
+                // Chat List
+                VStack(spacing: 15) {
+                    ChatItem(title: "Need help with my 2nd verse lyrics")
+                    ChatItem(title: "Catchy drop ideas")
+                    ChatItem(title: "Pop ballad production")
+                    ChatItem(title: "Sound design exploration")
+                    ChatItem(title: "Mixing advice needed")
+                }
+                .padding(.horizontal, 18)
+                .padding(.top, 20)
+            }
+        }
+        .background(HitCraftColors.background)
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: { dismiss() }) {
+                    Image(systemName: "arrow.left")
+                        .foregroundColor(HitCraftColors.text)
                 }
             }
-            .frame(maxWidth: .infinity)
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: { dismiss() }) {
+                    Text("Done")
+                        .foregroundColor(.blue)
+                        .font(HitCraftFonts.poppins(17, weight: .regular))
+                }
+            }
         }
     }
 }

@@ -4,6 +4,8 @@ struct ChatView: View {
     let musician: Musician?
     @Environment(\.dismiss) private var dismiss
     @State private var messageText = ""
+    @State private var isTyping = false
+    
     @State private var messages: [Message] = [
         Message(text: "I'm an AI music creation expert, specializing in music production, lyrics, and distribution. What can I help you with today?", isFromUser: false),
         Message(text: "Can you help me find some good house music loops with R&B influence from the early 90s?", isFromUser: true)
@@ -19,27 +21,35 @@ struct ChatView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            // Header
+            // Title Section
             VStack(spacing: 4) {
                 HStack {
                     Text(musician?.name ?? "Hiti")
                         .foregroundColor(HitCraftColors.accent)
                     Text("|")
                         .foregroundColor(HitCraftColors.accent)
-                    Text("HitCraft's AI bot")
+                    Text("Chat")
                         .foregroundColor(.black)
                 }
-                .font(.custom("Poppins-Regular", size: 14))
-                .padding(.top, 16)
-                .padding(.bottom, 12)
+                .font(HitCraftFonts.poppins(14, weight: .regular))
             }
-            .background(Color.white)
+            .padding(.top, 16)
             
             // Chat Messages
             ScrollView {
                 LazyVStack(spacing: 16) {
                     ForEach(messages) { message in
                         MessageBubble(isFromUser: message.isFromUser, text: message.text)
+                    }
+                    if isTyping {
+                        HStack {
+                            Text("Typing")
+                                .font(HitCraftFonts.poppins(12, weight: .light))
+                                .foregroundColor(.gray)
+                            TypingIndicator()
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading, 24)
                     }
                 }
                 .padding(.vertical, 16)
@@ -62,19 +72,26 @@ struct ChatView: View {
                                 .fill(Color.white)
                         )
                         .padding(16)
+                        .onSubmit {
+                            sendMessage()
+                        }
                     
                     HStack {
                         Menu {
-                            Text("Option 1")
-                            Text("Option 2")
+                            Text("General Assistant")
+                            Text("Music Producer")
+                            Text("Lyricist")
+                            Text("Sound Engineer")
                         } label: {
                             MenuButton(text: "\(truncatedName) Assistant", action: {}, isAssistant: true)
                         }
                         .padding(.leading, 14)
                         
                         Menu {
-                            Text("Style 1")
-                            Text("Style 2")
+                            Text("Professional")
+                            Text("Casual")
+                            Text("Technical")
+                            Text("Creative")
                         } label: {
                             MenuButton(text: "Choose style", action: {}, isAssistant: false)
                         }
@@ -82,7 +99,7 @@ struct ChatView: View {
                         
                         Spacer()
                         
-                        Button(action: {}) {
+                        Button(action: sendMessage) {
                             Image(systemName: "arrow.up")
                                 .foregroundColor(.white)
                                 .padding(.vertical, 8)
@@ -90,6 +107,7 @@ struct ChatView: View {
                                 .background(HitCraftColors.primaryGradient)
                                 .clipShape(Capsule())
                         }
+                        .disabled(messageText.isEmpty)
                     }
                     .padding(.horizontal, 16)
                     .padding(.bottom, 8)
@@ -98,6 +116,7 @@ struct ChatView: View {
                 .clipShape(CustomRoundedCorner(radius: 24))
             }
         }
+        .background(HitCraftColors.background)
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -106,40 +125,74 @@ struct ChatView: View {
                         .foregroundColor(HitCraftColors.text)
                 }
             }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: { dismiss() }) {
+                    Text("Done")
+                        .foregroundColor(.blue)
+                        .font(HitCraftFonts.poppins(17, weight: .regular))
+                }
+            }
+        }
+    }
+    
+    private func sendMessage() {
+        guard !messageText.isEmpty else { return }
+        
+        let userMessage = Message(text: messageText, isFromUser: true)
+        messages.append(userMessage)
+        let userMessageText = messageText
+        messageText = ""
+        
+        // Show typing indicator
+        isTyping = true
+        
+        // Simulate AI response with typing delay
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            isTyping = false
+            
+            // AI response based on user message
+            let aiResponse: String
+            if userMessageText.lowercased().contains("help") {
+                aiResponse = "I'll be happy to help! Could you tell me more about what you're looking to achieve?"
+            } else if userMessageText.lowercased().contains("music") {
+                aiResponse = "Music is what I do best! Let's explore some ideas together. What genre or style interests you?"
+            } else {
+                let responses = [
+                    "That's interesting! Let's explore this idea further. What specific aspects would you like to focus on?",
+                    "I understand what you're looking for. Here's what we can do...",
+                    "Great question! Let me help you with that. First, let's consider...",
+                    "I can definitely assist with that. Would you like to try a specific approach?"
+                ]
+                aiResponse = responses.randomElement() ?? responses[0]
+            }
+            
+            let aiMessage = Message(text: aiResponse, isFromUser: false)
+            messages.append(aiMessage)
         }
     }
 }
 
-struct MessageBubble: View {
-    let isFromUser: Bool
-    let text: String
+struct TypingIndicator: View {
+    @State private var dotOffset: CGFloat = 0
     
     var body: some View {
-        HStack(alignment: .top, spacing: 0) {
-            HStack(alignment: .top, spacing: 12) {
-                if isFromUser {
-                    Image(systemName: "person.circle.fill")
-                        .resizable()
-                        .frame(width: 32, height: 32)
-                        .foregroundColor(.gray)
-                }
-                
-                Text(text)
-                    .font(.custom("Poppins-Light", size: 15))
-                    .foregroundColor(Color(hex: "424246"))
-                    .lineSpacing(8)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                if !isFromUser {
-                    Spacer(minLength: 32)
-                }
+        HStack(spacing: 4) {
+            ForEach(0..<3) { index in
+                Circle()
+                    .fill(Color.gray)
+                    .frame(width: 6, height: 6)
+                    .offset(y: dotOffset)
+                    .animation(
+                        Animation.easeInOut(duration: 0.5)
+                            .repeatForever()
+                            .delay(0.2 * Double(index)),
+                        value: dotOffset
+                    )
             }
-            .padding(16)
-            .frame(maxWidth: .infinity)
-            .background(isFromUser ? Color(hex: "F1E4E9") : Color(hex: "EFE9F4"))
-            .clipShape(RoundedRectangle(cornerRadius: 12))
         }
-        .padding(.horizontal, 8)
+        .onAppear {
+            dotOffset = -5
+        }
     }
 }
 
@@ -147,12 +200,6 @@ struct MenuButton: View {
     let text: String
     let action: () -> Void
     let isAssistant: Bool
-    
-    init(text: String, action: @escaping () -> Void, isAssistant: Bool) {
-        self.text = text
-        self.action = action
-        self.isAssistant = isAssistant
-    }
     
     var body: some View {
         Button(action: action) {
