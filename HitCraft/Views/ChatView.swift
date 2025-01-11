@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ChatView: View {
-    let musician: Musician?
+    @Binding var selectedMusician: Musician
     @Environment(\.dismiss) private var dismiss
     @State private var messageText = ""
     @State private var isTyping = false
@@ -12,17 +12,22 @@ struct ChatView: View {
     ]
     
     private var truncatedName: String {
-        guard let name = musician?.name else { return "Hiti" }
-        if name.count > 8 {
-            return String(name.prefix(8)) + "..."
+        if selectedMusician.name.count > 8 {
+            return String(selectedMusician.name.prefix(8)) + "..."
         }
-        return name
+        return selectedMusician.name
     }
     
     var body: some View {
         VStack(spacing: 0) {
-            // New Musician Header
-            MusicianHeader(musician: musician, showSwitchOption: true)
+            // Using updated MusicianHeader
+            MusicianHeader(
+                musician: selectedMusician,
+                showSwitchOption: true,
+                title: "CHAT",
+                showTalentGPT: false,
+                selectedMusician: $selectedMusician
+            )
             
             // Chat Messages
             ScrollView {
@@ -72,20 +77,20 @@ struct ChatView: View {
                     
                     HStack {
                         Menu {
-                            Text("General Assistant")
-                            Text("Music Producer")
-                            Text("Lyricist")
-                            Text("Sound Engineer")
+                            Button("General Assistant", action: {})
+                            Button("Music Producer", action: {})
+                            Button("Lyricist", action: {})
+                            Button("Sound Engineer", action: {})
                         } label: {
                             MenuButton(text: "\(truncatedName) Assistant", action: {}, isAssistant: true)
                         }
                         .padding(.leading, 14)
                         
                         Menu {
-                            Text("Professional")
-                            Text("Casual")
-                            Text("Technical")
-                            Text("Creative")
+                            Button("Professional", action: {})
+                            Button("Casual", action: {})
+                            Button("Technical", action: {})
+                            Button("Creative", action: {})
                         } label: {
                             MenuButton(text: "Choose style", action: {}, isAssistant: false)
                         }
@@ -151,70 +156,6 @@ struct ChatView: View {
     }
 }
 
-struct TypingIndicator: View {
-    @State private var dotOffset: CGFloat = 0
-    
-    var body: some View {
-        HStack(spacing: 4) {
-            ForEach(0..<3) { index in
-                Circle()
-                    .fill(Color.gray)
-                    .frame(width: 6, height: 6)
-                    .offset(y: dotOffset)
-                    .animation(
-                        Animation.easeInOut(duration: 0.5)
-                            .repeatForever()
-                            .delay(0.2 * Double(index)),
-                        value: dotOffset
-                    )
-            }
-        }
-        .onAppear {
-            dotOffset = -5
-        }
-    }
-}
-
-struct MenuButton: View {
-    let text: String
-    let action: () -> Void
-    let isAssistant: Bool
-    
-    var body: some View {
-        Button(action: action) {
-            HStack(spacing: 4) {
-                Text(text)
-                    .font(.custom("Poppins-Light", size: 15))
-                    .foregroundColor(Color(hex: isAssistant ? "D1B4B9" : "C1A4A9"))
-                    .opacity(0.7)
-                
-                Image(systemName: "chevron.down")
-                    .font(.system(size: 12))
-                    .foregroundColor(Color(hex: isAssistant ? "D1B4B9" : "C1A4A9"))
-                    .opacity(0.7)
-            }
-        }
-    }
-}
-
-struct CustomRoundedCorner: Shape {
-    let radius: CGFloat
-    
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        path.move(to: CGPoint(x: 0, y: rect.maxY))
-        path.addLine(to: CGPoint(x: 0, y: radius))
-        path.addQuadCurve(
-            to: CGPoint(x: radius, y: 0),
-            control: CGPoint(x: 0, y: 0)
-        )
-        path.addLine(to: CGPoint(x: rect.maxX - radius, y: 0))
-        path.addQuadCurve(
-            to: CGPoint(x: rect.maxX, y: radius),
-            control: CGPoint(x: rect.maxX, y: 0)
-        )
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
-        path.addLine(to: CGPoint(x: 0, y: rect.maxY))
-        return path
-    }
+#Preview {
+    ChatView(selectedMusician: .constant(Musician.sampleMusicians[0]))
 }

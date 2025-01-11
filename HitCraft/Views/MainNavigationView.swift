@@ -2,7 +2,10 @@ import SwiftUI
 
 struct MainNavigationView: View {
     @State private var selectedTab = 0
-    @State private var selectedMusician: Musician?
+    @State private var selectedMusician = Musician.sampleMusicians[0] // Changed to non-optional
+    @State private var showingChat = false
+    @State private var showingSidebar = false
+    @State private var initialMessage: String?
     
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -17,11 +20,7 @@ struct MainNavigationView: View {
             
             // Chat tab
             NavigationStack {
-                if let musician = selectedMusician {
-                    ChatView(musician: musician)
-                } else {
-                    Text("Please select a musician from the sidebar")
-                }
+                ChatView(selectedMusician: $selectedMusician)
             }
             .tabItem {
                 Image(systemName: "message")
@@ -32,11 +31,7 @@ struct MainNavigationView: View {
             
             // Library tab
             NavigationStack {
-                if let musician = selectedMusician {
-                    BrowseView(musician: musician)
-                } else {
-                    Text("Please select a musician from the sidebar")
-                }
+                BrowseView(selectedMusician: $selectedMusician)
             }
             .tabItem {
                 Image(systemName: "music.note.list")
@@ -47,11 +42,10 @@ struct MainNavigationView: View {
             
             // History tab
             NavigationStack {
-                if let musician = selectedMusician {
-                    ChatSummaryView(isOpen: .constant(true), musician: musician)
-                } else {
-                    Text("Please select a musician from the sidebar")
-                }
+                ChatSummaryView(
+                    isOpen: .constant(true),
+                    selectedMusician: $selectedMusician
+                )
             }
             .tabItem {
                 Image(systemName: "clock")

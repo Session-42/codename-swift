@@ -1,4 +1,4 @@
-import Foundation
+import SwiftUI
 
 struct Musician: Identifiable, Hashable {
     let id = UUID()
@@ -30,6 +30,22 @@ struct Message: Identifiable, Hashable {
     }
 }
 
+struct Track: Identifiable, Hashable {
+    let id = UUID()
+    let title: String
+    let artist: String
+    let imageNumber: Int
+    let verified: Bool
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    static func == (lhs: Track, rhs: Track) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+
 struct ChatItem: Identifiable {
     let id = UUID()
     let title: String
@@ -42,7 +58,7 @@ struct ChatDetails {
     let presetLink: String
 }
 
-// Sample data extensions
+// Sample data
 extension Musician {
     static let sampleMusicians = [
         Musician(name: "Hitcraft", iconAsset: "hiti2"),
@@ -52,7 +68,7 @@ extension Musician {
         Musician(name: "Yinon Yahel (DJ)", iconAsset: "yinonyahel")
     ]
     
-    static let sample = sampleMusicians[1]
+    static let sample = sampleMusicians[0]
 }
 
 extension Message {

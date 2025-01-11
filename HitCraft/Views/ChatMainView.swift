@@ -1,21 +1,46 @@
 import SwiftUI
+
 struct ChatMainView: View {
     @Binding var showingChat: Bool
     @State private var messageText = ""
     @Binding var initialMessage: String?
-    let musician: Musician?
+    @Binding var selectedMusician: Musician
     @EnvironmentObject private var tabSelection: TabSelection
+    @Binding var showingSidebar: Bool
     
     var body: some View {
         VStack(spacing: 0) {
-            // Header - Keeping same style as other views
-            MusicianHeader(musician: musician, showSwitchOption: true)
+            // Using shared MusicianHeader with hamburger menu in overlay
+            ZStack {
+                MusicianHeader(
+                    musician: selectedMusician,
+                    showSwitchOption: true,
+                    title: "TalentGPT™",
+                    showTalentGPT: true,
+                    selectedMusician: $selectedMusician
+                )
+                
+                // Hamburger menu overlay
+                HStack {
+                    Button(action: {
+                        withAnimation(.easeOut(duration: 0.3)) {
+                            showingSidebar.toggle()
+                        }
+                    }) {
+                        Image(systemName: "line.3.horizontal")
+                            .font(.system(size: 24))
+                            .foregroundColor(.black)
+                    }
+                    Spacer()
+                }
+                .padding(.horizontal, 20)
+            }
             
             ScrollView {
                 VStack(spacing: 32) {
-                    // Rest of the content remains the same
+                    // Produce button now goes to Library tab
                     Button(action: {
-                        tabSelection.switchTab(to: 2)
+                        tabSelection.switchTab(to: 2)  // Switch to Library tab
                     }) {
                         Circle()
                             .fill(HitCraftColors.primaryGradient)
@@ -26,9 +51,7 @@ struct ChatMainView: View {
                                     .foregroundColor(.white)
                             )
                     }
-                    .padding(.top, 16) // Reduced from 32 to match other views
-                    
-                    // Rest of your existing content...
+                    .padding(.top, 16)
                     
                     // Chat Input
                     HStack {
@@ -37,20 +60,10 @@ struct ChatMainView: View {
                             .padding(.leading, 16)
                             .foregroundColor(.gray)
                             .onSubmit {
-                                if !messageText.isEmpty {
-                                    initialMessage = messageText
-                                    messageText = ""
-                                    tabSelection.switchTab(to: 1)
-                                }
+                                sendMessageAndNavigate()
                             }
                         
-                        Button(action: {
-                            if !messageText.isEmpty {
-                                initialMessage = messageText
-                                messageText = ""
-                                tabSelection.switchTab(to: 1)
-                            }
-                        }) {
+                        Button(action: sendMessageAndNavigate) {
                             Circle()
                                 .fill(HitCraftColors.primaryGradient)
                                 .frame(width: 37, height: 37)
@@ -74,16 +87,19 @@ struct ChatMainView: View {
                     // Action Cards
                     VStack(spacing: 12) {
                         ActionCard(title: "Browse Music", subtitle: "& Produce") {
-                            tabSelection.switchTab(to: 1)
+                            initialMessage = "I want to browse music and produce something new"
+                            tabSelection.switchTab(to: 1)  // Navigate to chat with message
                         }
                         .buttonStyle(PlainButtonStyle())
                         
                         ActionCard(title: "Let's collaborate & make", subtitle: "your next song together") {
+                            initialMessage = "I want to collaborate and make a new song. Can you help me?"
                             tabSelection.switchTab(to: 1)
                         }
                         .buttonStyle(PlainButtonStyle())
                         
                         ActionCard(title: "Get guidance, help and", subtitle: "sounds for your project") {
+                            initialMessage = "I need guidance and help finding sounds for my project"
                             tabSelection.switchTab(to: 1)
                         }
                         .buttonStyle(PlainButtonStyle())
@@ -97,7 +113,7 @@ struct ChatMainView: View {
                                 .font(HitCraftFonts.poppins(14, weight: .medium))
                             Spacer()
                             Button("View all →") {
-                                tabSelection.switchTab(to: 3)
+                                tabSelection.switchTab(to: 3)  // Navigate to history
                             }
                             .foregroundColor(HitCraftColors.accent)
                         }
@@ -112,4 +128,22 @@ struct ChatMainView: View {
         }
         .background(HitCraftColors.background)
     }
+    
+    private func sendMessageAndNavigate() {
+        if !messageText.isEmpty {
+            initialMessage = messageText
+            messageText = ""
+            tabSelection.switchTab(to: 1)  // Navigate to chat with typed message
+        }
+    }
+}
+
+#Preview {
+    ChatMainView(
+        showingChat: .constant(false),
+        initialMessage: .constant(nil),
+        selectedMusician: .constant(Musician.sampleMusicians[0]),
+        showingSidebar: .constant(false)
+    )
+    .environmentObject(TabSelection())
 }

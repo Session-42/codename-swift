@@ -1,13 +1,22 @@
 import SwiftUI
 
+class TabSelection: ObservableObject {
+    @Published var selection: Int = 0
+    
+    func switchTab(to tab: Int) {
+        selection = tab
+    }
+}
+
 struct MainTabView: View {
-    @State private var selectedTab = 0
-    @Binding var selectedMusician: Musician?
+    @StateObject private var tabSelection = TabSelection()
+    @State private var selectedMusician = Musician.sampleMusicians[0]
     @State private var initialMessage: String?
     @State private var showingChat = false
+    @State private var showingSidebar = false
     
     var body: some View {
-        TabView(selection: $selectedTab) {
+        TabView(selection: $tabSelection.selection) {
             // Home tab
             ContentView(selectedMusician: $selectedMusician)
                 .tabItem {
@@ -19,11 +28,7 @@ struct MainTabView: View {
             
             // Chat tab
             NavigationStack {
-                if let musician = selectedMusician {
-                    ChatView(musician: musician)
-                } else {
-                    ChatView(musician: Musician.sampleMusicians[0])
-                }
+                ChatView(selectedMusician: $selectedMusician)
             }
             .tabItem {
                 Image(systemName: "message")
@@ -34,11 +39,7 @@ struct MainTabView: View {
             
             // Library tab
             NavigationStack {
-                if let musician = selectedMusician {
-                    BrowseView(musician: musician)
-                } else {
-                    BrowseView(musician: Musician.sampleMusicians[0])
-                }
+                BrowseView(selectedMusician: $selectedMusician)
             }
             .tabItem {
                 Image(systemName: "music.note.list")
@@ -49,11 +50,10 @@ struct MainTabView: View {
             
             // History tab
             NavigationStack {
-                if let musician = selectedMusician {
-                    ChatSummaryView(isOpen: .constant(true), musician: musician)
-                } else {
-                    ChatSummaryView(isOpen: .constant(true), musician: Musician.sampleMusicians[0])
-                }
+                ChatSummaryView(
+                    isOpen: .constant(true),
+                    selectedMusician: $selectedMusician
+                )
             }
             .tabItem {
                 Image(systemName: "clock")
@@ -62,18 +62,10 @@ struct MainTabView: View {
             }
             .tag(3)
         }
-        .environmentObject(TabSelection(selection: $selectedTab))
+        .environmentObject(tabSelection)
     }
 }
 
-class TabSelection: ObservableObject {
-    @Binding var selection: Int
-    
-    init(selection: Binding<Int>) {
-        self._selection = selection
-    }
-    
-    func switchTab(to tab: Int) {
-        selection = tab
-    }
+#Preview {
+    MainTabView()
 }

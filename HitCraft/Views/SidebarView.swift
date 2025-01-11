@@ -2,10 +2,10 @@ import SwiftUI
 
 struct SidebarView: View {
     @Binding var isOpen: Bool
-    @Binding var selectedMusician: Musician?  // Changed to use Musician type
+    @Binding var selectedMusician: Musician  // Removed optional
     @State private var searchText = ""
     
-    let musicians = Musician.sampleMusicians  // Using the sample data from our model
+    let musicians = Musician.sampleMusicians
     
     var body: some View {
         ZStack {
@@ -74,7 +74,7 @@ struct SidebarView: View {
                             .frame(height: 58)
                             .background(
                                 RoundedRectangle(cornerRadius: 23)
-                                    .fill(selectedMusician?.id == musician.id ? Color(hex: "E3E9F7").opacity(0.7) : Color.clear)
+                                    .fill(selectedMusician.id == musician.id ? Color(hex: "E3E9F7").opacity(0.7) : Color.clear)
                             )
                             .padding(.horizontal, 20)
                         }

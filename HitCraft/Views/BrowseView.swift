@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct BrowseView: View {
-    let musician: Musician
+    @Binding var selectedMusician: Musician
     @State private var selectedGenre = "All Genres"
     @State private var selectedMood = "All Moods"
     @State private var searchText = ""
@@ -11,20 +11,26 @@ struct BrowseView: View {
     let moods = ["All Moods", "Energetic", "Chill", "Dark", "Happy"]
     
     var tracks: [Track] {
-        musician.library.isEmpty ? (1...20).map { index in
+        selectedMusician.library.isEmpty ? (1...20).map { index in
             Track(
                 title: "Track \(index)",
-                artist: musician.name,
+                artist: selectedMusician.name,
                 imageNumber: ((index - 1) % 6) + 1,
                 verified: true
             )
-        } : musician.library
+        } : selectedMusician.library
     }
     
     var body: some View {
         VStack(spacing: 0) {
-            // New Musician Header
-            MusicianHeader(musician: musician, showSwitchOption: true)
+            // Updated Musician Header
+            MusicianHeader(
+                musician: selectedMusician,
+                showSwitchOption: true,
+                title: "LIBRARY",
+                showTalentGPT: false,
+                selectedMusician: $selectedMusician
+            )
             
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
@@ -117,6 +123,6 @@ struct BrowseView: View {
 
 #Preview {
     NavigationStack {
-        BrowseView(musician: Musician.sampleMusicians[0])
+        BrowseView(selectedMusician: .constant(Musician.sampleMusicians[0]))
     }
 }

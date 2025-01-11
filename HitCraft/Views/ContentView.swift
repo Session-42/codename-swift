@@ -1,44 +1,25 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Binding var selectedMusician: Musician?
+    @Binding var selectedMusician: Musician
     @State private var navigationPath = NavigationPath()
     @State private var showingChat = false
     @State private var showingSidebar = false
     @State private var initialMessage: String?
     
     var body: some View {
-        NavigationStack(path: $navigationPath) {
+        NavigationStack {
             ZStack {
                 HitCraftColors.background
                     .ignoresSafeArea()
                 
-                VStack(spacing: 0) {
-                    // Top space with hamburger button
-                    HStack {
-                        Button(action: {
-                            withAnimation(.easeOut(duration: 0.3)) {
-                                showingSidebar = true
-                            }
-                        }) {
-                            Image(systemName: "line.3.horizontal")
-                                .font(.system(size: 24))
-                                .foregroundColor(.black)
-                                .frame(width: 44, height: 44)
-                        }
-                        Spacer()
-                        
-                        if let musician = selectedMusician {
-                            Text(musician.name)
-                                .font(HitCraftFonts.poppins(16, weight: .medium))
-                        }
-                    }
-                    .frame(height: 44)
-                    .padding(.horizontal, 20)
-                    
-                    // Main Content
-                    ChatMainView(showingChat: $showingChat, initialMessage: $initialMessage, musician: selectedMusician)
-                }
+                // Main Content
+                ChatMainView(
+                    showingChat: $showingChat,
+                    initialMessage: $initialMessage,
+                    selectedMusician: $selectedMusician,
+                    showingSidebar: $showingSidebar
+                )
                 
                 // Custom sidebar transition from left
                 if showingSidebar {
@@ -51,17 +32,25 @@ struct ContentView: View {
                         }
                     
                     HStack(spacing: 0) {
-                        SidebarView(isOpen: $showingSidebar, selectedMusician: $selectedMusician)
-                            .frame(width: UIScreen.main.bounds.width * 0.85)
-                            .background(Color.white)
-                            .transition(.move(edge: .leading))
+                        SidebarView(
+                            isOpen: $showingSidebar,
+                            selectedMusician: $selectedMusician
+                        )
+                        .frame(width: UIScreen.main.bounds.width * 0.85)
+                        .background(Color.white)
+                        .transition(.move(edge: .leading))
                         
                         Spacer()
                     }
                 }
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarBackButtonHidden(true)
+            .navigationBarHidden(true)
         }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView(selectedMusician: .constant(Musician.sampleMusicians[0]))
     }
 }
