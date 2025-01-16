@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "hitcraft-mobile",
+    "slug": "hitcraft-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "scheme": "hitcraft",
+    "splash": {
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.hitcraft.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.hitcraft.app"
+    },
+    "web": {
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "newArchEnabled": true
+  }
+}
