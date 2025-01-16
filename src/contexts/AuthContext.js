@@ -1,72 +1,81 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { TOKEN_NAME } from '../lib/api-client';
 
-const AuthContext = createContext({
-  user: null,
-  sessionToken: null,
-  signIn: async () => {},
-  signOut: async () => {},
-});
+const AuthContext = createContext(null);
+
+export function useAuth() {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
+}
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [sessionToken, setSessionToken] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadStoredSession();
+    checkAuthStatus();
   }, []);
 
-  const loadStoredSession = async () => {
+  const checkAuthStatus = async () => {
     try {
-      const [storedToken, storedUser] = await Promise.all([
-        AsyncStorage.getItem('sessionToken'),
-        AsyncStorage.getItem('user'),
-      ]);
-      
-      if (storedToken && storedUser) {
-        setSessionToken(storedToken);
-        setUser(JSON.parse(storedUser));
+      const token = await AsyncStorage.getItem(TOKEN_NAME);
+      if (token) {
+        // In development, use mock user data
+        if (__DEV__) {
+          setUser({
+            id: 'dev-user',
+            name: 'Development User',
+            email: 'dev@hitcraft.ai'
+          });
+        }
+        // In production, you would validate the token with your backend
       }
     } catch (error) {
-      console.error('Error loading stored session:', error);
+      console.error('Error checking auth status:', error);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
-  const signIn = async (tokens, userData) => {
+  const signIn = async (token, userData) => {
     try {
-      await AsyncStorage.setItem('sessionToken', tokens.sessionToken);
-      await AsyncStorage.setItem('refreshToken', tokens.refreshToken);
-      await AsyncStorage.setItem('user', JSON.stringify(userData));
-      
-      setSessionToken(tokens.sessionToken);
+      await AsyncStorage.setItem(TOKEN_NAME, token);
       setUser(userData);
     } catch (error) {
-      console.error('Error saving auth data:', error);
+      console.error('Error signing in:', error);
+      throw error;
     }
   };
 
   const signOut = async () => {
     try {
-      await AsyncStorage.multiRemove(['sessionToken', 'refreshToken', 'user']);
-      setSessionToken(null);
+      await AsyncStorage.removeItem(TOKEN_NAME);
       setUser(null);
     } catch (error) {
-      console.error('Error removing auth data:', error);
+      console.error('Error signing out:', error);
+      throw error;
     }
   };
 
-  if (isLoading) {
-    return null; // Or a loading spinner component
+  const value = {
+    user,
+    loading,
+    signIn,
+    signOut,
+  };
+
+  if (loading) {
+    // You could return a loading screen here
+    return null;
   }
 
   return (
-    <AuthContext.Provider value={{ user, sessionToken, signIn, signOut }}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );
 }
-
-export const useAuth = () => useContext(AuthContext);

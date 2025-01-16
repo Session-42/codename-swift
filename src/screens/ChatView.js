@@ -1,136 +1,189 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   View,
   ScrollView,
-  TextInput,
-  TouchableOpacity,
   StyleSheet,
-  Text,
   KeyboardAvoidingView,
   Platform,
-  Image,
+  Modal,
+  TouchableOpacity,
+  Text,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useNavigation, useLocalSearchParams } from 'expo-router';
 import { HitCraftColors } from '../theme/colors';
 import { HitCraftFonts } from '../theme/typography';
 import { MusicianHeader } from '../components/MusicianHeader';
+import { MessageBubble } from '../components/chat/MessageBubble';
+import { ChatInput } from '../components/chat/ChatInput';
 import { TypingIndicator } from '../components/chat/TypingIndicator';
-import { useAuth } from '../contexts/AuthContext';
+import { chatApi } from '../lib/api-client';
 
-const AVATAR_IMAGE = require('../../assets/images/oudi.png');
+const ASSISTANT_TYPES = [
+  'General Assistant',
+  'Music Producer',
+  'Lyricist',
+  'Sound Engineer'
+];
 
-export default function ChatView() {
-  const [messageText, setMessageText] = useState('');
-  const [messages, setMessages] = useState([]);
+const CHAT_STYLES = [
+  'Professional',
+  'Casual',
+  'Technical',
+  'Creative'
+];
+
+export default function ChatView({ selectedMusician = 'Hitcraft' }) {
+  const [messages, setMessages] = useState([
+    { id: '1', text: "Hi! I'm Hitcraft AI. How can I help you today?", isFromUser: false },
+  ]);
+  const [inputText, setInputText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [showAssistantModal, setShowAssistantModal] = useState(false);
+  const [showStyleModal, setShowStyleModal] = useState(false);
+  const [selectedAssistant, setSelectedAssistant] = useState('General Assistant');
+  const [selectedStyle, setSelectedStyle] = useState('Professional');
+  
   const insets = useSafeAreaInsets();
-  const navigation = useNavigation();
-  const { initialMessage } = useLocalSearchParams();
-  const { signOut, user } = useAuth();
+  const scrollViewRef = useRef();
 
-  const handleSend = () => {
-    if (messageText.trim()) {
-      setMessages(prev => [...prev, {
-        id: Date.now().toString(),
-        text: messageText,
-        isUser: true
-      }]);
-      setMessageText('');
+  const handleSend = async () => {
+    if (!inputText.trim()) return;
+
+    const newMessage = {
+      id: Date.now().toString(),
+      text: inputText.trim(),
+      isFromUser: true,
+    };
+
+    setMessages(prev => [...prev, newMessage]);
+    setInputText('');
+    setIsTyping(true);
+
+    try {
+      const response = await chatApi.sendMessage('offline-default', newMessage.text);
+      setIsTyping(false);
       
-      // Show typing indicator
-      setIsTyping(true);
-      
-      // Simulate response after typing
-      setTimeout(() => {
-        setIsTyping(false);
-        setMessages(prev => [...prev, {
+      if (response) {
+        const aiResponse = {
           id: (Date.now() + 1).toString(),
-          text: "I understand you're interested in music production. Let me help you with that!",
-          isUser: false
-        }]);
-      }, 2000);
+          text: response.content || "I'm here to help you with your music!",
+          isFromUser: false,
+        };
+        setMessages(prev => [...prev, aiResponse]);
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      setIsTyping(false);
+      
+      if (__DEV__) {
+        const mockResponse = {
+          id: (Date.now() + 1).toString(),
+          text: "I'm in development mode, but I'll help you as best I can!",
+          isFromUser: false,
+        };
+        setMessages(prev => [...prev, mockResponse]);
+      }
     }
   };
 
-  return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
-      <View style={styles.header}>
-        <TouchableOpacity 
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Ionicons name="arrow-back" size={24} color={HitCraftColors.text} />
-        </TouchableOpacity>
-        <MusicianHeader
-          title="CHAT"
-          showSwitchOption={true}
-        />
-        <TouchableOpacity 
-          style={styles.signOutButton}
-          onPress={signOut}
-        >
-          <Ionicons name="log-out-outline" size={24} color={HitCraftColors.accent} />
-        </TouchableOpacity>
-      </View>
-
-      <KeyboardAvoidingView 
-        style={styles.content} 
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+  const renderModal = (visible, onClose, title, options, selectedOption, onSelect) => (
+    <Modal
+      visible={visible}
+      transparent
+      animationType="slide"
+      onRequestClose={onClose}
+    >
+      <TouchableOpacity 
+        style={styles.modalOverlay}
+        activeOpacity={1}
+        onPress={onClose}
       >
-        <ScrollView 
-          style={styles.messagesContainer}
-          contentContainerStyle={styles.messagesContent}
-        >
-          {messages.map(message => (
-            <View 
-              key={message.id}
+        <View style={styles.modalContent}>
+          <Text style={styles.modalTitle}>{title}</Text>
+          {options.map((option) => (
+            <TouchableOpacity
+              key={option}
               style={[
-                styles.messageBubble,
-                message.isUser ? styles.userMessage : styles.botMessage
+                styles.modalOption,
+                selectedOption === option && styles.selectedOption
               ]}
+              onPress={() => {
+                onSelect(option);
+                onClose();
+              }}
             >
-              {message.isUser && (
-                <Image
-                  source={AVATAR_IMAGE}
-                  style={styles.avatar}
-                  resizeMode="contain"
-                />
-              )}
-              <Text style={styles.messageText}>{message.text}</Text>
-            </View>
+              <Text style={[
+                styles.modalOptionText,
+                selectedOption === option && styles.selectedOptionText
+              ]}>
+                {option}
+              </Text>
+            </TouchableOpacity>
           ))}
-          {isTyping && (
-            <View style={[styles.messageBubble, styles.botMessage]}>
-              <TypingIndicator />
-            </View>
-          )}
-        </ScrollView>
-
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            value={messageText}
-            onChangeText={setMessageText}
-            placeholder="Type your message..."
-            placeholderTextColor={HitCraftColors.secondaryText}
-            multiline
-          />
-          <TouchableOpacity
-            style={styles.sendButton}
-            onPress={handleSend}
-            disabled={!messageText.trim()}
-          >
-            <Ionicons
-              name="send"
-              size={24}
-              color={messageText.trim() ? HitCraftColors.accent : HitCraftColors.secondaryText}
-            />
-          </TouchableOpacity>
         </View>
-      </KeyboardAvoidingView>
-    </View>
+      </TouchableOpacity>
+    </Modal>
+  );
+
+  return (
+    <KeyboardAvoidingView
+      style={[styles.container, { paddingTop: insets.top }]}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
+    >
+      <MusicianHeader
+        title="CHAT"
+        showSwitchOption={true}
+        selectedMusician={selectedMusician}
+      />
+
+      <ScrollView
+        ref={scrollViewRef}
+        style={styles.messagesContainer}
+        onContentSizeChange={() => scrollViewRef.current?.scrollToEnd({ animated: true })}
+      >
+        {messages.map((message) => (
+          <MessageBubble
+            key={message.id}
+            text={message.text}
+            isFromUser={message.isFromUser}
+          />
+        ))}
+        {isTyping && (
+          <View style={styles.typingContainer}>
+            <TypingIndicator />
+          </View>
+        )}
+      </ScrollView>
+
+      <ChatInput
+        value={inputText}
+        onChangeText={setInputText}
+        onSend={handleSend}
+        placeholder={`Message ${selectedMusician}...`}
+        selectedMusician={selectedMusician}
+        onAssistantPress={() => setShowAssistantModal(true)}
+        onStylePress={() => setShowStyleModal(true)}
+      />
+
+      {renderModal(
+        showAssistantModal,
+        () => setShowAssistantModal(false),
+        'Select Assistant Type',
+        ASSISTANT_TYPES,
+        selectedAssistant,
+        setSelectedAssistant
+      )}
+
+      {renderModal(
+        showStyleModal,
+        () => setShowStyleModal(false),
+        'Select Chat Style',
+        CHAT_STYLES,
+        selectedStyle,
+        setSelectedStyle
+      )}
+    </KeyboardAvoidingView>
   );
 }
 
@@ -139,86 +192,45 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: HitCraftColors.background,
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-  },
-  backButton: {
-    padding: 8,
-  },
-  signOutButton: {
-    padding: 8,
-  },
-  content: {
-    flex: 1,
-  },
   messagesContainer: {
     flex: 1,
-    paddingHorizontal: 10,
+    paddingTop: 10,
   },
-  messagesContent: {
-    paddingVertical: 10,
-  },
-  messageBubble: {
-    width: '100%',
-    minHeight: 60,
-    marginVertical: 5,
-    borderRadius: 17,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  userMessage: {
-    backgroundColor: '#f1e4e9',
-    paddingLeft: 8,
-    paddingRight: 29,
-    paddingVertical: 10,
-  },
-  botMessage: {
-    backgroundColor: '#efe9f4',
-    paddingLeft: 17,
-    paddingRight: 29,
-    paddingVertical: 10,
-  },
-  messageText: {
-    flex: 1,
-    fontFamily: 'Poppins',
-    fontSize: 15,
-    fontWeight: '300',
-    lineHeight: 24,
-    color: '#424246',
-  },
-  avatar: {
-    width: 36,
-    height: 36,
-    margin: 2.5,
-    marginRight: 6.5,
-    marginBottom: 2,
-    borderRadius: 18,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 16,
-    borderTopWidth: 1,
-    borderTopColor: HitCraftColors.border,
-    backgroundColor: '#FFFFFF',
-  },
-  input: {
-    flex: 1,
-    fontFamily: 'Poppins',
-    fontSize: 15,
-    fontWeight: '300',
-    backgroundColor: '#F8F8F8',
-    borderRadius: 20,
+  typingContainer: {
     paddingHorizontal: 16,
     paddingVertical: 8,
-    marginRight: 8,
-    maxHeight: 100,
-    color: '#424246',
   },
-  sendButton: {
-    padding: 8,
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'flex-end',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 20,
+    maxHeight: '80%',
+  },
+  modalTitle: {
+    ...HitCraftFonts.poppins(18, 'Medium'),
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  modalOption: {
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    marginBottom: 8,
+  },
+  selectedOption: {
+    backgroundColor: HitCraftColors.cardBackground,
+  },
+  modalOptionText: {
+    ...HitCraftFonts.poppins(16, 'Regular'),
+    color: HitCraftColors.text,
+  },
+  selectedOptionText: {
+    color: HitCraftColors.accent,
   },
 });

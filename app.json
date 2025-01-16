@@ -1,12 +1,14 @@
 {
   "expo": {
-    "name": "hitcraft-mobile",
-    "slug": "hitcraft-mobile",
+    "name": "hitcraft-mobile-new",
+    "slug": "hitcraft-mobile-new",
     "version": "1.0.0",
     "orientation": "portrait",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "scheme": "hitcraft",
     "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
@@ -14,19 +16,26 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.hitcraft.app"
+      "bundleIdentifier": "com.hitcraft.mobile"
     },
     "android": {
       "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.hitcraft.app"
+      "package": "com.hitcraft.mobile"
     },
     "web": {
+      "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "@expo/vector-icons"
     ],
-    "newArchEnabled": true
+    "scheme": "hitcraft",
+    "experiments": {
+      "typedRoutes": true,
+      "newArchEnabled": true
+    }
   }
 }

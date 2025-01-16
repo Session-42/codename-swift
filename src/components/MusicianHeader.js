@@ -1,109 +1,123 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Modal,
+  ScrollView,
+  Image,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { HitCraftColors } from '../theme/colors';
 import { HitCraftFonts } from '../theme/typography';
 
-const MUSICIANS = [
-  { id: '1', name: 'Hitcraft' },
-  { id: '2', name: 'Max Martin' },
-  { id: '3', name: 'Chamillionaire' },
-  { id: '4', name: 'The Chainsmokers' },
-  { id: '5', name: 'Yinon Yahel (DJ)' }
+const DEFAULT_MUSICIANS = [
+  { id: 'hitcraft', name: 'Hitcraft', iconAsset: 'hiti2' },
+  { id: 'chainsmokers', name: 'The Chainsmokers', iconAsset: 'Chainsmokers' },
+  { id: 'chamillionaire', name: 'Chamillionaire', iconAsset: 'chamillionaire' },
+  { id: 'maxmartin', name: 'Max Martin', iconAsset: 'maxmartin' },
+  { id: 'yinonyahel', name: 'Yinon Yahel (DJ)', iconAsset: 'yinonyahel' },
 ];
 
-export const MusicianHeader = ({
-  title = 'CHAT',
-  showSwitchOption = true,
-  selectedMusician = MUSICIANS[0],
+export function MusicianHeader({ 
+  title, 
+  showSwitchOption = false,
+  showTalentGPT = false,
+  selectedMusician = DEFAULT_MUSICIANS[0],
   onMusicianChange,
-  style
-}) => {
-  const [showPicker, setShowPicker] = useState(false);
+}) {
+  const [showMusicianPicker, setShowMusicianPicker] = useState(false);
+
+  const handleMusicianSelect = (musician) => {
+    onMusicianChange?.(musician);
+    setShowMusicianPicker(false);
+  };
 
   return (
-    <>
-      <View style={[styles.container, style]}>
-        <View style={styles.contentContainer}>
-          {showSwitchOption ? (
-            <TouchableOpacity
-              onPress={() => setShowPicker(true)}
-              style={styles.nameButton}
-              activeOpacity={0.6}
-            >
-              <Text style={styles.musicianName}>{selectedMusician.name}</Text>
-              <Ionicons name="chevron-down" size={14} color={HitCraftColors.accent} />
-            </TouchableOpacity>
-          ) : (
+    <View style={styles.container}>
+      <View style={styles.contentContainer}>
+        {showSwitchOption ? (
+          <TouchableOpacity 
+            style={styles.musicianButton}
+            onPress={() => setShowMusicianPicker(true)}
+          >
             <Text style={styles.musicianName}>{selectedMusician.name}</Text>
-          )}
-          <Text style={styles.dot}> • </Text>
-          <Text style={styles.titleText}>{title}</Text>
-        </View>
+            <Ionicons name="chevron-down" size={14} color={HitCraftColors.accent} />
+          </TouchableOpacity>
+        ) : (
+          <Text style={styles.musicianName}>{selectedMusician.name}</Text>
+        )}
+        <Text style={styles.dot}>•</Text>
+        <Text style={styles.title}>
+          {showTalentGPT ? 'TalentGPT™' : title}
+        </Text>
       </View>
 
       <Modal
-        visible={showPicker}
+        visible={showMusicianPicker}
         transparent
         animationType="slide"
-        onRequestClose={() => setShowPicker(false)}
+        onRequestClose={() => setShowMusicianPicker(false)}
       >
-        <View style={styles.modalContainer}>
+        <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <View style={styles.modalHeader}>
               <Text style={styles.modalTitle}>Select Musician</Text>
               <TouchableOpacity 
+                onPress={() => setShowMusicianPicker(false)}
                 style={styles.closeButton}
-                onPress={() => setShowPicker(false)}
               >
-                <Text style={styles.closeText}>Done</Text>
+                <Text style={styles.closeButtonText}>Done</Text>
               </TouchableOpacity>
             </View>
-            {MUSICIANS.map(musician => (
-              <TouchableOpacity
-                key={musician.id}
-                onPress={() => {
-                  onMusicianChange?.(musician);
-                  setShowPicker(false);
-                }}
-                style={{
-                  padding: 16,
-                  borderBottomWidth: 1,
-                  borderBottomColor: HitCraftColors.border,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center'
-                }}
-              >
-                <Text style={{
-                  ...HitCraftFonts.poppins(16, 'Regular'),
-                }}>{musician.name}</Text>
-                {musician.id === selectedMusician.id && (
-                  <Ionicons name="checkmark" size={24} color={HitCraftColors.accent} />
-                )}
-              </TouchableOpacity>
-            ))}
+
+            <ScrollView style={styles.musicianList}>
+              {DEFAULT_MUSICIANS.map((musician) => (
+                <TouchableOpacity
+                  key={musician.id}
+                  style={styles.musicianItem}
+                  onPress={() => handleMusicianSelect(musician)}
+                >
+                  <View style={styles.musicianInfo}>
+                    <Image
+                      source={{ uri: musician.iconAsset }}
+                      style={styles.musicianIcon}
+                      defaultSource={require('../../assets/default-avatar.png')}
+                    />
+                    <Text style={styles.musicianItemName}>{musician.name}</Text>
+                  </View>
+                  {selectedMusician.id === musician.id && (
+                    <Ionicons 
+                      name="checkmark" 
+                      size={24} 
+                      color={HitCraftColors.accent} 
+                    />
+                  )}
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
           </View>
         </View>
       </Modal>
-    </>
+    </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
-    height: 44,
-    backgroundColor: HitCraftColors.background,
-    justifyContent: 'center',
-    marginBottom: 0,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    backgroundColor: 'white',
+    borderBottomWidth: 1,
+    borderBottomColor: HitCraftColors.border,
   },
   contentContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 16,
   },
-  nameButton: {
+  musicianButton: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
@@ -113,18 +127,18 @@ const styles = StyleSheet.create({
     color: HitCraftColors.accent,
   },
   dot: {
-    ...HitCraftFonts.poppins(18, 'Regular'),
+    ...HitCraftFonts.poppins(18, 'Medium'),
     color: HitCraftColors.accent,
     marginHorizontal: 8,
   },
-  titleText: {
+  title: {
     ...HitCraftFonts.poppins(18, 'Light'),
-    color: '#000',
+    color: HitCraftColors.text,
   },
-  modalContainer: {
+  modalOverlay: {
     flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'flex-end',
-    backgroundColor: 'rgba(0,0,0,0.5)',
   },
   modalContent: {
     backgroundColor: 'white',
@@ -134,20 +148,50 @@ const styles = StyleSheet.create({
   },
   modalHeader: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'space-between',
     padding: 16,
     borderBottomWidth: 1,
     borderBottomColor: HitCraftColors.border,
   },
   modalTitle: {
-    ...HitCraftFonts.poppins(16, 'Medium'),
+    ...HitCraftFonts.poppins(18, 'Medium'),
+    color: HitCraftColors.text,
   },
   closeButton: {
     padding: 8,
   },
-  closeText: {
-    ...HitCraftFonts.poppins(14),
+  closeButtonText: {
+    ...HitCraftFonts.poppins(16, 'Medium'),
     color: HitCraftColors.accent,
+  },
+  musicianList: {
+    padding: 16,
+  },
+  musicianItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    marginBottom: 8,
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: HitCraftColors.border,
+  },
+  musicianInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  musicianIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+  },
+  musicianItemName: {
+    ...HitCraftFonts.poppins(16, 'Regular'),
+    color: HitCraftColors.text,
   },
 });

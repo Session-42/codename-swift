@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Alert } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Alert, Image, Linking } from 'react-native';
 import { useAuth } from '../contexts/AuthContext';
 import * as WebBrowser from 'expo-web-browser';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { TOKEN_NAME } from '../lib/api-client';
 
 const DESCOPE_PROJECT_ID = 'P2c5c3JHvZ8w5oiRpMMZnRKRtP2e';
 const REDIRECT_URL = 'hitcraft://oauth-callback';
@@ -16,7 +18,7 @@ export default function LoginScreen() {
       console.log('Starting login process...');
 
       // Start OAuth flow with Descope
-      const authUrl = `https://api.descope.com/v1/auth/oauth/authorize`;
+      const authUrl = 'https://api.descope.com/v1/auth/oauth/authorize';
       const params = new URLSearchParams({
         provider: 'google',
         redirectUrl: REDIRECT_URL,
@@ -65,6 +67,10 @@ export default function LoginScreen() {
         console.log('Got token data');
         
         // Save auth data
+        await AsyncStorage.setItem(TOKEN_NAME, tokenData.sessionJwt);
+        await AsyncStorage.setItem('refreshToken', tokenData.refreshJwt);
+        
+        // Save user data and sign in
         await signIn(
           {
             sessionToken: tokenData.sessionJwt,
@@ -83,15 +89,32 @@ export default function LoginScreen() {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={[styles.button, isLoading && styles.buttonDisabled]}
-        onPress={handleLogin}
-        disabled={isLoading}
-      >
-        <Text style={styles.buttonText}>
-          {isLoading ? 'Signing in...' : 'Sign in with Google'}
-        </Text>
-      </TouchableOpacity>
+      <View style={styles.content}>
+        <Image
+          source={require('../../assets/hitcraft.png')}
+          style={styles.logo}
+          resizeMode="contain"
+        />
+        
+        <TouchableOpacity
+          style={[styles.button, isLoading && styles.buttonDisabled]}
+          onPress={handleLogin}
+          disabled={isLoading}
+        >
+          <Text style={styles.buttonText}>
+            {isLoading ? 'Signing in...' : 'Sign in with Google'}
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => Linking.openURL('https://hitcraft.ai/sign-up')}
+          style={styles.signUpLink}
+        >
+          <Text style={styles.signUpText}>
+            Don't have an account? <Text style={styles.signUpHighlight}>Sign up</Text>
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -103,6 +126,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
     backgroundColor: '#f5f5f5',
+  },
+  content: {
+    width: '100%',
+    maxWidth: 400,
+    alignItems: 'center',
+  },
+  logo: {
+    width: 200,
+    height: 80,
+    marginBottom: 40,
   },
   button: {
     backgroundColor: '#007AFF',
@@ -118,6 +151,17 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#FFFFFF',
     fontSize: 16,
+    fontWeight: '600',
+  },
+  signUpLink: {
+    marginTop: 20,
+  },
+  signUpText: {
+    fontSize: 14,
+    color: '#666',
+  },
+  signUpHighlight: {
+    color: '#007AFF',
     fontWeight: '600',
   },
 });

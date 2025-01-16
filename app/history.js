@@ -1,13 +1,24 @@
-import { Redirect } from 'expo-router';
+import React from 'react';
 import { useAuth } from '../src/contexts/AuthContext';
-import HistoryView from '../src/screens/HistoryView.js';
+import { View, ActivityIndicator } from 'react-native';
+import { HitCraftColors } from '../src/theme/colors';
+import { ChatSummaryView } from '../src/screens/ChatSummaryView';
 
-export default function History() {
-  const { sessionToken } = useAuth();
+export default function HistoryScreen() {
+  const { loading } = useAuth();
 
-  if (!sessionToken) {
-    return <Redirect href="/" />;
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color={HitCraftColors.accent} />
+      </View>
+    );
   }
 
-  return <HistoryView />;
+  return <ChatSummaryView isOpen={true} />;
 }
+
+// Keep history screen mounted to preserve state
+HistoryScreen.unstable_settings = {
+  unmountOnBlur: false,
+};

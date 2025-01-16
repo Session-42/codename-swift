@@ -1,45 +1,21 @@
-import { Platform } from 'react-native';
+// Font weight mapping to Poppins font family names
+const FONT_FAMILIES = {
+  Light: 'PoppinsLight',
+  Regular: 'PoppinsRegular',
+  Medium: 'PoppinsMedium',
+  SemiBold: 'PoppinsSemiBold',
+  Bold: 'PoppinsBold',
+};
 
 export const HitCraftFonts = {
+  /**
+   * Helper function to generate font styles
+   * @param {number} size - Font size in pixels
+   * @param {string} weight - Font weight (Light, Regular, Medium, SemiBold, Bold)
+   * @returns {Object} Font style object
+   */
   poppins: (size, weight = 'Regular') => ({
-    fontFamily: `Poppins-${weight}`,
+    fontFamily: FONT_FAMILIES[weight] || FONT_FAMILIES.Regular,
     fontSize: size,
   }),
-
-  // Predefined text styles
-  displayLarge: {
-    ...Platform.select({
-      ios: { fontFamily: 'Poppins-Bold' },
-      android: { fontFamily: 'Poppins-Bold' },
-    }),
-    fontSize: 32,
-  },
-  displayMedium: {
-    ...Platform.select({
-      ios: { fontFamily: 'Poppins-SemiBold' },
-      android: { fontFamily: 'Poppins-SemiBold' },
-    }),
-    fontSize: 28,
-  },
-  bodyLarge: {
-    ...Platform.select({
-      ios: { fontFamily: 'Poppins-Regular' },
-      android: { fontFamily: 'Poppins-Regular' },
-    }),
-    fontSize: 16,
-  },
-  bodyMedium: {
-    ...Platform.select({
-      ios: { fontFamily: 'Poppins-Regular' },
-      android: { fontFamily: 'Poppins-Regular' },
-    }),
-    fontSize: 14,
-  },
-  bodySmall: {
-    ...Platform.select({
-      ios: { fontFamily: 'Poppins-Regular' },
-      android: { fontFamily: 'Poppins-Regular' },
-    }),
-    fontSize: 12,
-  }
 };

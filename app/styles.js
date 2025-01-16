@@ -1,13 +1,6 @@
-import { Redirect } from 'expo-router';
-import { useAuth } from '../src/contexts/AuthContext';
-import StylesView from '../src/screens/StylesView.js';
+import React from 'react';
+import StylesView from '../src/screens/StylesView';
 
-export default function Styles() {
-  const { sessionToken } = useAuth();
-
-  if (!sessionToken) {
-    return <Redirect href="/" />;
-  }
-
+export default function StylesScreen() {
   return <StylesView />;
 }

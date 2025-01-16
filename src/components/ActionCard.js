@@ -1,53 +1,56 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
+import {
+  TouchableOpacity,
+  View,
+  Text,
+  StyleSheet,
+} from 'react-native';
 import { HitCraftColors } from '../theme/colors';
 import { HitCraftFonts } from '../theme/typography';
 
-export const ActionCard = ({ title, subtitle, onPress }) => {
+export function ActionCard({ title, subtitle, onPress }) {
   return (
-    <TouchableOpacity 
-      style={styles.container} 
+    <TouchableOpacity
+      style={styles.container}
       onPress={onPress}
       activeOpacity={0.7}
     >
       <View style={styles.content}>
-        <Text style={styles.title} numberOfLines={1}>{title}</Text>
-        <Text style={styles.subtitle} numberOfLines={1}>{subtitle}</Text>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.subtitle}>{subtitle}</Text>
       </View>
     </TouchableOpacity>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    paddingVertical: 12,
-    backgroundColor: HitCraftColors.cardBackground,
+    backgroundColor: '#FFFFFF',
     borderRadius: 12,
-    borderWidth: 1,
-    borderColor: HitCraftColors.border,
+    padding: 12,
+    height: 90,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.05,
-    shadowRadius: 3.84,
-    elevation: 5,
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 3,
   },
   content: {
-    alignItems: 'center',
+    flex: 1,
     justifyContent: 'center',
-    gap: 2,
-    paddingHorizontal: 4,
+    alignItems: 'center',
   },
   title: {
-    ...HitCraftFonts.poppins(13, 'Regular'),
+    ...HitCraftFonts.poppins(16, 'Medium'),
     color: HitCraftColors.text,
     textAlign: 'center',
+    marginBottom: 4,
   },
   subtitle: {
-    ...HitCraftFonts.poppins(11, 'Light'),
+    ...HitCraftFonts.poppins(14, 'Light'),
     color: HitCraftColors.secondaryText,
     textAlign: 'center',
   },

@@ -9,8 +9,11 @@ export const ChatInput = ({
   value, 
   onChangeText, 
   onSend, 
-  placeholder = "Message Max Mart...",
-  containerStyle
+  placeholder = "Message Hitcraft...",
+  containerStyle,
+  selectedMusician = "Hitcraft",
+  onAssistantPress,
+  onStylePress
 }) => {
   return (
     <View style={[styles.container, containerStyle]}>
@@ -49,11 +52,17 @@ export const ChatInput = ({
         </View>
       </View>
       <View style={styles.bottomRow}>
-        <TouchableOpacity style={styles.assistantButton}>
-          <Text style={styles.assistantText}>Max Mart... Assistant</Text>
+        <TouchableOpacity 
+          style={styles.assistantButton}
+          onPress={onAssistantPress}
+        >
+          <Text style={styles.assistantText}>{selectedMusician} Assistant</Text>
           <Ionicons name="chevron-down" size={12} color="rgba(0, 0, 0, 0.4)" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.styleButton}>
+        <TouchableOpacity 
+          style={styles.styleButton}
+          onPress={onStylePress}
+        >
           <Text style={styles.styleText}>Choose style</Text>
           <Ionicons name="chevron-down" size={12} color="rgba(0, 0, 0, 0.4)" />
         </TouchableOpacity>
